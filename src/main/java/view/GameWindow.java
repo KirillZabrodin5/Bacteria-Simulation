@@ -6,7 +6,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
-//конструктор этого класса рисует окно игровое поле
+//конструктор этого класса создает окно игровое поле
 public class GameWindow extends JInternalFrame
 {
     private final Model m_visualizer;

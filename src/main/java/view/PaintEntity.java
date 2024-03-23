@@ -4,14 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import model.Model;
-public class PaintEntity extends JPanel {
+import model.entity.*;
+
+public class PaintEntity extends Model { //render
+
     @Override
     public void paint(Graphics g)
     {
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
-        drawRobot(g2d, round(Model.getM_robotPositionX()), round(Model.getM_robotPositionY()), Model.getM_robotDirection());
-        drawTarget(g2d, Model.getM_targetPositionX(), Model.getM_targetPositionY());
+        drawRobot(g2d, round(robot.getRobotPositionX()), round(robot.getRobotPositionY()), robot.getRobotDirection());
+        drawTarget(g2d, target.getTargetPositionX(), target.getTargetPositionY());
     }
 
     private static int round(double value)
@@ -31,8 +34,8 @@ public class PaintEntity extends JPanel {
 
     private void drawRobot(Graphics2D g, int x, int y, double direction)
     {
-        int robotCenterX = round(Model.getM_robotPositionX());
-        int robotCenterY = round(Model.getM_robotPositionY());
+        int robotCenterX = round(robot.getRobotPositionX());
+        int robotCenterY = round(robot.getRobotPositionY());
         AffineTransform t = AffineTransform.getRotateInstance(direction, robotCenterX, robotCenterY);
         g.setTransform(t);
         g.setColor(Color.MAGENTA);

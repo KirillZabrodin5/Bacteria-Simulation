@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import log.Logger;
 import viewModel.CreateMenu;
-//тут весь класс можно во View перенести, но видимо сделать более читаемым, как написано ниже
+
 /**
  * Что требуется сделать:
  * 1. Метод создания меню перегружен функционалом и трудно читается. 
@@ -28,7 +28,7 @@ public class ApplicationFrame extends JFrame
 
         GameWindow gameWindow = new GameWindow(); //создали окно для игры
         gameWindow.setSize(400,  400); // и задали ему размеры. Max размеры: 1560*770
-        //размеры надо бы вынести в отдельные переменные
+
         addWindow(gameWindow);  // этот метод, как стек работает.
                                 // То есть чем раньше создаем окно, тем оно ниже слоем находится
 
@@ -39,10 +39,10 @@ public class ApplicationFrame extends JFrame
     protected LogWindow createLogWindow()
     {
         LogWindow logWindow = new LogWindow(Logger.getDefaultLogSource());
-        logWindow.setLocation(10,10); //координаты и размеры надо бы вынести в отдельные переменные
+        logWindow.setLocation(10,10);
         logWindow.setSize(300, 800);
         setMinimumSize(logWindow.getSize());
-        logWindow.pack(); //автоматическое определение оптимальных размеров окна
+        logWindow.pack(); //автоматическое определение оптимальных размеров окна???
         Logger.debug("Протокол работает");
         return logWindow;
     }
@@ -51,7 +51,7 @@ public class ApplicationFrame extends JFrame
     {
         desktopPane.add(frame); // добавляем окно на desktopPane
         frame.setVisible(true); // и делаем его видимым для пользователя, устанавливая true.
-                                // Если будет false, то будет не видно
+                                // Если будет false, то окно будет не видно
     }
 
     public JMenuBar generateMenuBar()
