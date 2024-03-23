@@ -3,63 +3,24 @@ package model;
 import model.entity.*;
 import view.PaintEntity;
 
+import utils.ApplicationMath;
 import javax.swing.*;
 import java.awt.EventQueue;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Model extends JPanel
 {
-//    private static volatile double m_robotPositionX = 300;
-//
-//    private static volatile double m_robotPositionY = 300;
-//
-//    private static volatile double m_robotDirection = 0;
-//
-//    private static volatile int m_targetPositionX = 100;
-//
-//    private static volatile int m_targetPositionY = 100;
-//
-//    private static final double maxVelocity = 0.1;
-//    private static final double maxAngularVelocity = 0.001;
+
     public Robot robot = new Robot();
     public Target target = new Target();
 
     //отсюда и до сеттера надо подумать, куда раскидать, но вроде это не модел
-    private final Timer m_timer = new Timer("events generator", true);
-    public Model()
-    {//viewModel
-        m_timer.schedule(new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                onRedrawEvent();
-            }
-        }, 0, 50);
-        m_timer.schedule(new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                onModelUpdateEvent();
-            }
-        }, 0, 10);
-        addMouseListener(new MouseAdapter() // это во вью модел, потому что происходит обработка нажатий мыши
-        {
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                target.setTargetPosition(e.getPoint());
-                //repaint();
-            }
-        });
 
-        setDoubleBuffered(true);
-    }
 
     protected void onRedrawEvent() //  во вью наверное, потому что это перерисовка
     {
@@ -67,18 +28,21 @@ public class Model extends JPanel
     }
     // то, что ниже точно в модель
 
+    public List<BaseEntity> getEntities() {
+        return List.of(robot, target);
+    }
 
-    protected void onModelUpdateEvent()
+    protected void updateModels()
     {
-        double distance = ApplicationMath.distance(target.getTargetPositionX(), target.getTargetPositionY(),
-            robot.getRobotPositionX(), robot.getRobotPositionY());
+        double distance = ApplicationMath.distance(target.x, target.y,
+            robot.x, robot.y);
         if (distance < 0.5)
         {
             return;
         }
         double velocity = robot.getMaxVelocity();
-        double angleToTarget = ApplicationMath.angleTo(robot.getRobotPositionX(), robot.getRobotPositionY(),
-                target.getTargetPositionX(), target.getTargetPositionY());
+        double angleToTarget = ApplicationMath.angleTo(robot.x, robot.y,
+                target.x, target.y);
         double angularVelocity = 0;
         if (angleToTarget > robot.getRobotDirection())
         {

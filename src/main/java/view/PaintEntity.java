@@ -13,8 +13,8 @@ public class PaintEntity extends Model { //render
     {
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
-        drawRobot(g2d, round(robot.getRobotPositionX()), round(robot.getRobotPositionY()), robot.getRobotDirection());
-        drawTarget(g2d, target.getTargetPositionX(), target.getTargetPositionY());
+        drawRobot(g2d, robot.x, robot.y, robot.getRobotDirection());
+        drawTarget(g2d, target.x, target.y);
     }
 
     private static int round(double value)
@@ -22,7 +22,7 @@ public class PaintEntity extends Model { //render
         return (int)(value + 0.5);
     }
 
-    private static void fillOval(Graphics g, int centerX, int centerY, int diam1, int diam2)
+    private static void fillOval(Graphics g, double centerX, double centerY, int diam1, int diam2)
     {
         g.fillOval(centerX - diam1 / 2, centerY - diam2 / 2, diam1, diam2);
     }
@@ -32,20 +32,18 @@ public class PaintEntity extends Model { //render
         g.drawOval(centerX - diam1 / 2, centerY - diam2 / 2, diam1, diam2);
     }
 
-    private void drawRobot(Graphics2D g, int x, int y, double direction)
+    private void drawRobot(Graphics2D g, double x, double y, double direction)
     {
-        int robotCenterX = round(robot.getRobotPositionX());
-        int robotCenterY = round(robot.getRobotPositionY());
-        AffineTransform t = AffineTransform.getRotateInstance(direction, robotCenterX, robotCenterY);
+        AffineTransform t = AffineTransform.getRotateInstance(direction, x, y);
         g.setTransform(t);
         g.setColor(Color.MAGENTA);
-        fillOval(g, robotCenterX, robotCenterY, 30, 10);
+        fillOval(g, x, y, 30, 10);
         g.setColor(Color.BLACK);
-        drawOval(g, robotCenterX, robotCenterY, 30, 10);
+        drawOval(g, x, y, 30, 10);
         g.setColor(Color.WHITE);
-        fillOval(g, robotCenterX  + 10, robotCenterY, 5, 5);
+        fillOval(g, x  + 10, y, 5, 5);
         g.setColor(Color.BLACK);
-        drawOval(g, robotCenterX  + 10, robotCenterY, 5, 5);
+        drawOval(g, x  + 10, y, 5, 5);
     }
 
     private void drawTarget(Graphics2D g, int x, int y)

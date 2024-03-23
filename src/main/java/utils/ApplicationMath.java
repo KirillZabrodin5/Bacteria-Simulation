@@ -1,6 +1,6 @@
 package model;
 
-public class ApplicationMath {
+public final class ApplicationMath {
     public static double distance(double x1, double y1, double x2, double y2)
     {
         double diffX = x1 - x2;
