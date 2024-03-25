@@ -3,7 +3,9 @@ package model.entity;
 import utils.ApplicationMath;
 
 public class Robot extends BaseEntity{
-
+    public Robot(double x, double y) {
+        super(x, y);
+    }
     private volatile double robotDirection = 0;
 
     private final double maxVelocity = 0.1;

@@ -16,11 +16,6 @@ public class ApplicationFrame extends JFrame
     private final JDesktopPane desktopPane = new JDesktopPane(); // создается окно с многослойной панелью
     
     public ApplicationFrame() {
-        // не понял для чего нужны следующие 3 строки, убрав их - ничего не меняется визуально
-//        int inset = 50;
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // создаем объект, отвечающий за
-//                                                                             размер, цвета, шрифты экрана
-//        setBounds(inset, inset, screenSize.width  - inset*2, screenSize.height - inset*2); //это строка задает размеры какого-то окна
 
         setContentPane(desktopPane); //сделали desktopPane панелью контента
 

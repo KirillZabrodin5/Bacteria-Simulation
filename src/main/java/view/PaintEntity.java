@@ -32,7 +32,7 @@ public class PaintEntity extends Model { //render
         g.drawOval(centerX - diam1 / 2, centerY - diam2 / 2, diam1, diam2);
     }
 
-    private void drawRobot(Graphics2D g, double x, double y, double direction)
+    public static void drawRobot(Graphics2D g, double x, double y, double direction)
     {
         int x1 = (int) x;
         int y1 = (int) y;
@@ -48,7 +48,7 @@ public class PaintEntity extends Model { //render
         drawOval(g, x1  + 10, y1, 5, 5);
     }
 
-    private void drawTarget(Graphics2D g, int x, int y)
+    public void drawTarget(Graphics2D g, int x, int y)
     {
         AffineTransform t = AffineTransform.getRotateInstance(0, 0, 0);
         g.setTransform(t);
