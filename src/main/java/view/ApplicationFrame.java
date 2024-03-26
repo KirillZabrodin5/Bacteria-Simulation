@@ -2,44 +2,29 @@ package view;
 
 import javax.swing.*;
 
-import log.Logger;
+import model.Model;
 import viewModel.CreateMenu;
-//этот класс вроде норм написан и находится на своем месте
+import viewModel.Window;
+
 public class ApplicationFrame extends JFrame
 {
     private final JDesktopPane desktopPane = new JDesktopPane();
-    
+    private Model model = new Model();
+    private View view = new View(model);
     public ApplicationFrame() {
-
         setContentPane(desktopPane);
-
-        addWindow(createLogWindow());
-
-        GameWindow gameWindow = new GameWindow();
-        gameWindow.setSize(400,  400);
-
-        addWindow(gameWindow);
+        Window createWindow = new Window();
+        addWindow(createWindow.createLogWindow());
+        addWindow(createWindow.createGameWindow(view));
 
         setJMenuBar(generateMenuBar());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    
-    protected LogWindow createLogWindow()
-    {
-        LogWindow logWindow = new LogWindow(Logger.getDefaultLogSource());
-        logWindow.setLocation(10,10);
-        logWindow.setSize(300, 800);
-        setMinimumSize(logWindow.getSize());
-        logWindow.pack();
-        Logger.debug("Протокол работает");
-        return logWindow;
-    }
-    
+
     protected void addWindow(JInternalFrame frame)
     {
         desktopPane.add(frame);
         frame.setVisible(true);
-
     }
 
     public JMenuBar generateMenuBar()
@@ -49,5 +34,9 @@ public class ApplicationFrame extends JFrame
         menuBar.add(createMenu.createLookAndFeelMenu());
         menuBar.add(createMenu.createTestMenu());
         return menuBar;
+    }
+
+    public Model getModel() {
+        return model;
     }
 }

@@ -10,7 +10,6 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-//во вью модел вообще не понятно, что должно быть, только этот класс тут нравится, остальное - говно
 public class CreateMenu {
     private final ApplicationFrame window;
     public CreateMenu(ApplicationFrame window) {

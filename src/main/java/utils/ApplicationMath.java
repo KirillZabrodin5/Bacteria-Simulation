@@ -1,7 +1,7 @@
 package utils;
 
 public final class ApplicationMath {
-    public static double distance(double x1, double y1, double x2, double y2)
+    public static double distance(double x1, double y1, double x2, double y2) // это для двух Entity
     {
         double diffX = x1 - x2;
         double diffY = y1 - y2;

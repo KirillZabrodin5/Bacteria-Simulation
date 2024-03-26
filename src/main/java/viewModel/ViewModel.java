@@ -1,7 +1,8 @@
 package viewModel;
 
 import model.Model;
-import model.entity.Target;
+import model.entity.RobotAndTarget;
+import view.View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,11 +10,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Timer;
 import java.util.TimerTask;
-public class OurTimer extends JPanel {
-    Model model = new Model();
-    Target target = (Target) model.getEntities().get(1); //костыль
+//таймер вроде здесь должен быть, но куда его передавать не ясно
+//вью модел должен работать с frames
+public class ViewModel extends JPanel {
+    private final Model model = new Model();
     private final Timer m_timer = new Timer("events generator", true);
-    public OurTimer() {
+    public ViewModel(Model model, View view) { //может в конструктор передать target
         m_timer.schedule(new TimerTask()
         {
             @Override
@@ -35,8 +37,7 @@ public class OurTimer extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                target.setTargetPosition(e.getPoint());
-
+                ((RobotAndTarget) model.getEntities().get(0)).setTargetPosition(e.getPoint());
             }
         });
 
@@ -45,5 +46,5 @@ public class OurTimer extends JPanel {
     protected void onRedrawEvent()
     {
         EventQueue.invokeLater(this::repaint);
-    }
+    } //это во вью надо выкинуть
 }
