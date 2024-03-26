@@ -8,29 +8,29 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ViewModel {
-    private final Model model;
-
-    private Map<Class<?>, EntityRenderer<?>> renderes = Map.of(
-            BaseEntity.class, new TextureRenderer()
-    );
-
-    public ViewModel(){
-        model = new Model();
-    }
-
-    public void updateLogic() {
-         model.updateModel();
-    }
-
-    public void render() {
-        List<BaseEntity> entities = model.getEntities();
-        for (BaseEntity entity : entities) {
-            EntityRenderer<BaseEntity> entityRenderer = (EntityRenderer<BaseEntity>) renderes.get(entity.getClass());
-            entityRenderer.render(entity);
-        }
-
-    }
+//public class EntityToFiguresMapper {
+//    private final Model model;
+//
+//    private Map<Class<?>, EntityRenderer<?>> renderes = Map.of(
+//            BaseEntity.class, new EntityRenderer()
+//    );
+//
+//    public EntityToFiguresMapper(){
+//        model = new Model();
+//    }
+//
+//    public void updateLogic() {
+//         model.updateModel();
+//    }
+//
+//    public void render() {
+//        List<BaseEntity> entities = model.getEntities();
+//        for (BaseEntity entity : entities) {
+//            EntityRenderer<BaseEntity> entityRenderer = (EntityRenderer<BaseEntity>) renderes.get(entity.getClass());
+//            entityRenderer.render(entity);
+//        }
+//
+//    }
 
 //    private final Model model;
 //    private final Batch batch = new SpriteBatch();
@@ -73,4 +73,4 @@ public class ViewModel {
 //        }
 //    }
     
-}
+//}

@@ -1,67 +1,23 @@
 package model;
 
 import model.entity.*;
-
 import utils.ApplicationMath;
+
 import javax.swing.*;
-import java.awt.EventQueue;
 import java.util.List;
 import java.util.ArrayList;
 
 
-public class Model extends JPanel
+public class Model
 {
     public Robot robot = new Robot(300, 300);
     public Target target = new Target(100, 100);
 
-    private List<BaseEntity> entities = new ArrayList<>();
+    private final List<BaseEntity> entities = new ArrayList<>();
     public Model() {
         entities.add(robot);
         entities.add(target);
     }
-
-    //отсюда и до сеттера надо подумать, куда раскидать, но вроде это не модел
-
-//    public Model()
-//    {//viewModel
-//        m_timer.schedule(new TimerTask()
-//        {
-//            @Override
-//            public void run()
-//            {
-//                onRedrawEvent();
-//            }
-//        }, 0, 50);
-//        m_timer.schedule(new TimerTask()
-//        {
-//            @Override
-//            public void run()
-//            {
-//                onModelUpdateEvent();
-//            }
-//        }, 0, 10);
-//        addMouseListener(new MouseAdapter() // это во вью модел, потому что происходит обработка нажатий мыши
-//        {
-//            @Override
-//            public void mouseClicked(MouseEvent e)
-//            {
-//                target.setTargetPosition(e.getPoint());
-//                //repaint();
-//            }
-//        });
-//
-//        setDoubleBuffered(true);
-//    }
-
-    public List<BaseEntity> getEntities() {
-        return entities;
-    }
-
-    protected void onRedrawEvent() //  во вью наверное, потому что это перерисовка
-    {
-        EventQueue.invokeLater(this::repaint);
-    }
-    // то, что ниже точно в модель
 
     public void updateModel()
     {
@@ -87,4 +43,7 @@ public class Model extends JPanel
         robot.moveRobot(velocity, angularVelocity, 10);
     }
 
+    public List<BaseEntity> getEntities() {
+        return entities;
+    }
 }

@@ -11,9 +11,7 @@ import log.LogChangeListener;
 import log.LogEntry;
 import log.LogWindowSource;
 
-//конструктор этого класса создает окно Протокол работы - его надо в View
-//updateLogContent и onLogChanged - скорее всего во ViewModel
-
+//пойдет
 public class LogWindow extends JInternalFrame implements LogChangeListener
 {
     private LogWindowSource m_logSource;

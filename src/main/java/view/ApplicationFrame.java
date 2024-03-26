@@ -4,30 +4,23 @@ import javax.swing.*;
 
 import log.Logger;
 import viewModel.CreateMenu;
-
-/**
- * Что требуется сделать:
- * 1. Метод создания меню перегружен функционалом и трудно читается. 
- * Следует разделить его на серию более простых методов (или вообще выделить отдельный класс).
- *
- */
+//этот класс вроде норм написан и находится на своем месте
 public class ApplicationFrame extends JFrame
 {
-    private final JDesktopPane desktopPane = new JDesktopPane(); // создается окно с многослойной панелью
+    private final JDesktopPane desktopPane = new JDesktopPane();
     
     public ApplicationFrame() {
 
-        setContentPane(desktopPane); //сделали desktopPane панелью контента
+        setContentPane(desktopPane);
 
-        addWindow(createLogWindow()); // создали окно логирования и добавили его в desktopPane, как одно из окон многослойной панели
+        addWindow(createLogWindow());
 
-        GameWindow gameWindow = new GameWindow(); //создали окно для игры
-        gameWindow.setSize(400,  400); // и задали ему размеры. Max размеры: 1560*770
+        GameWindow gameWindow = new GameWindow();
+        gameWindow.setSize(400,  400);
 
-        addWindow(gameWindow);  // этот метод, как стек работает.
-                                // То есть чем раньше создаем окно, тем оно ниже слоем находится
+        addWindow(gameWindow);
 
-        setJMenuBar(generateMenuBar()); //создание менюшки
+        setJMenuBar(generateMenuBar());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
@@ -37,16 +30,16 @@ public class ApplicationFrame extends JFrame
         logWindow.setLocation(10,10);
         logWindow.setSize(300, 800);
         setMinimumSize(logWindow.getSize());
-        logWindow.pack(); //автоматическое определение оптимальных размеров окна???
+        logWindow.pack();
         Logger.debug("Протокол работает");
         return logWindow;
     }
     
     protected void addWindow(JInternalFrame frame)
     {
-        desktopPane.add(frame); // добавляем окно на desktopPane
-        frame.setVisible(true); // и делаем его видимым для пользователя, устанавливая true.
-                                // Если будет false, то окно будет не видно
+        desktopPane.add(frame);
+        frame.setVisible(true);
+
     }
 
     public JMenuBar generateMenuBar()
@@ -57,33 +50,4 @@ public class ApplicationFrame extends JFrame
         menuBar.add(createMenu.createTestMenu());
         return menuBar;
     }
-    
-//    protected JMenuBar createMenuBar() {
-//        JMenuBar menuBar = new JMenuBar();
-// 
-//        //Set up the lone menu.
-//        JMenu menu = new JMenu("Document");
-//        menu.setMnemonic(KeyEvent.VK_D);
-//        menuBar.add(menu);
-// 
-//        //Set up the first menu item.
-//        JMenuItem menuItem = new JMenuItem("New");
-//        menuItem.setMnemonic(KeyEvent.VK_N);
-//        menuItem.setAccelerator(KeyStroke.getKeyStroke(
-//                KeyEvent.VK_N, ActionEvent.ALT_MASK));
-//        menuItem.setActionCommand("new");
-////        menuItem.addActionListener(this);
-//        menu.add(menuItem);
-// 
-//        //Set up the second menu item.
-//        menuItem = new JMenuItem("Quit");
-//        menuItem.setMnemonic(KeyEvent.VK_Q);
-//        menuItem.setAccelerator(KeyStroke.getKeyStroke(
-//                KeyEvent.VK_Q, ActionEvent.ALT_MASK));
-//        menuItem.setActionCommand("quit");
-////        menuItem.addActionListener(this);
-//        menu.add(menuItem);
-// 
-//        return menuBar;
-//    }
 }
