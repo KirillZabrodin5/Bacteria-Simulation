@@ -1,15 +1,13 @@
 package viewModel;
 
 import log.Logger;
-import view.GameWindow;
-import view.LogWindow;
 import view.View;
 
 import javax.swing.*;
 
 public class Window extends JFrame {
-    public GameWindow createGameWindow(View view) {
-        GameWindow gameWindow = new GameWindow(view);
+    public GameWindow createGameWindow(View view, ViewModel viewModel) {
+        GameWindow gameWindow = new GameWindow(view, viewModel);
         gameWindow.setSize(400,  400);
         return gameWindow;
     }

@@ -13,4 +13,5 @@ public abstract class BaseEntity {
         this.xTarget = xTarget;
         this.yTarget = yTarget;
     }
+    public abstract void update();
 }

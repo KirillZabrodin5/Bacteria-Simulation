@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Model
 {
-    public RobotAndTarget robotAndTarget = new RobotAndTarget(300, 300, 100, 100);
+    private RobotAndTarget robotAndTarget = new RobotAndTarget(300, 300, 100, 100);
     private final List<BaseEntity> entities = new ArrayList<>();
     public Model() {
         entities.add(robotAndTarget);
@@ -15,7 +15,10 @@ public class Model
 
     public void updateModel()
     {
-        robotAndTarget.update();
+        for(BaseEntity entity : entities) {
+            entity.update();
+        }
+
     }
 
     public List<BaseEntity> getEntities() {

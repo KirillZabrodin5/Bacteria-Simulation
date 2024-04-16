@@ -32,27 +32,25 @@ public class Renderer implements EntityRenderer<BaseEntity> {
     {
         int x1 = round(x);
         int y1 = round(y);
-        AffineTransform t = AffineTransform.getRotateInstance(direction, x, y);
+        AffineTransform t = AffineTransform.getRotateInstance(direction, x1, y1);
         g.setTransform(t);
         g.setColor(Color.MAGENTA);
-        fillOval(g, x, y, 30, 10);
+        fillOval(g, x1, y1, 30, 10);
         g.setColor(Color.BLACK);
         drawOval(g, x1, y1, 30, 10);
         g.setColor(Color.WHITE);
-        fillOval(g, x  + 10, y, 5, 5);
+        fillOval(g, x1  + 10, y1, 5, 5);
         g.setColor(Color.BLACK);
         drawOval(g, x1  + 10, y1, 5, 5);
     }
 
     private static void drawTarget(Graphics2D g, double x, double y)
     {
-        int x1 = round(x);
-        int y1 = round(y);
         AffineTransform t = AffineTransform.getRotateInstance(0, 0, 0);
         g.setTransform(t);
         g.setColor(Color.GREEN);
-        fillOval(g, x1, y1, 5, 5);
+        fillOval(g, x, y, 5, 5);
         g.setColor(Color.BLACK);
-        drawOval(g, x1, y1, 5, 5);
+        drawOval(g, round(x), round(y), 5, 5);
     }
 }
