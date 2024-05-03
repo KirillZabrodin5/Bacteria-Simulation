@@ -1,7 +1,7 @@
 package viewModel;
 
 import log.Logger;
-import view.ApplicationFrame;
+import view.MainApplicationFrame;
 
 import java.awt.event.KeyEvent;
 
@@ -11,8 +11,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 public class CreateMenu {
-    private final ApplicationFrame window;
-    public CreateMenu(ApplicationFrame window) {
+    private final MainApplicationFrame window;
+    public CreateMenu(MainApplicationFrame window) {
         this.window = window;
     }
     public JMenu createLookAndFeelMenu() {

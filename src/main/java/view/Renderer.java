@@ -1,16 +1,17 @@
 package view;
 
-import model.entity.BaseEntity;
+import RunApplication.Main;
+import model.entity.AbstractEntity;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class Renderer implements EntityRenderer<BaseEntity> {
+public class Renderer implements EntityRenderer<AbstractEntity> {
     @Override
-    public void render(BaseEntity entity, Graphics g) {
+    public void render(AbstractEntity entity, Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
-        drawRobot(g2d, entity.xRobot,  entity.yRobot,  entity.robotDirection);
-        drawTarget(g2d, entity.xTarget, entity.yTarget);
+        drawRobot(g2d, entity.xRobot,  entity.yRobot,  entity.robotDirection, entity.sizeRobot);
+        drawTarget(g2d, entity.xTarget, entity.yTarget, entity.sizeRobot);
     }
 
     private static int round(double value)
@@ -18,41 +19,35 @@ public class Renderer implements EntityRenderer<BaseEntity> {
         return (int)(value + 0.5);
     }
 
-    private static void fillOval(Graphics g, double centerX, double centerY, int diam1, int diam2)
+    private static void fillCell(Graphics g, double x, double y, int width, int height)
     {
-        g.fillOval((int) (centerX - diam1 / 2), (int) (centerY - diam2 / 2), diam1, diam2);
+        g.fillRect(round(x),round(y), width, height);
     }
 
-    private static void drawOval(Graphics g, int centerX, int centerY, int diam1, int diam2)
+    private static void drawCell(Graphics g, double x, double y, int width, int height)
     {
-        g.drawOval(centerX - diam1 / 2, centerY - diam2 / 2, diam1, diam2);
+        g.drawRect(round(x),round(y), width, height);
     }
 
-    private static void drawRobot(Graphics2D g, double x, double y, double direction)
+    private static void drawRobot(Graphics2D g, double x, double y, double direction, int sizeRobot)
     {
         int x1 = round(x);
         int y1 = round(y);
-        AffineTransform t = AffineTransform.getRotateInstance(direction, x, y);
+        AffineTransform t = AffineTransform.getRotateInstance(direction, x1, y1);
         g.setTransform(t);
         g.setColor(Color.MAGENTA);
-        fillOval(g, x, y, 30, 10);
+        fillCell(g, x1, y1, sizeRobot,sizeRobot);
         g.setColor(Color.BLACK);
-        drawOval(g, x1, y1, 30, 10);
-        g.setColor(Color.WHITE);
-        fillOval(g, x  + 10, y, 5, 5);
-        g.setColor(Color.BLACK);
-        drawOval(g, x1  + 10, y1, 5, 5);
+        drawCell(g, x1, y1, sizeRobot, sizeRobot);
     }
 
-    private static void drawTarget(Graphics2D g, double x, double y)
+    private static void drawTarget(Graphics2D g, double x, double y, int sizeRobot)
     {
-        int x1 = round(x);
-        int y1 = round(y);
         AffineTransform t = AffineTransform.getRotateInstance(0, 0, 0);
         g.setTransform(t);
         g.setColor(Color.GREEN);
-        fillOval(g, x1, y1, 5, 5);
+        fillCell(g, x, y, sizeRobot, sizeRobot);
         g.setColor(Color.BLACK);
-        drawOval(g, x1, y1, 5, 5);
+        drawCell(g, x, y, sizeRobot, sizeRobot);
     }
 }

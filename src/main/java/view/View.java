@@ -1,25 +1,32 @@
 package view;
 
+import RunApplication.Main;
 import model.Model;
-import model.entity.BaseEntity;
+import model.entity.AbstractEntity;
 
 import javax.swing.*;
 import java.awt.*;
-
 import java.util.List;
-public class View extends JPanel {
-    private final List<BaseEntity> list;
+public class View extends JComponent {
+    private final List<AbstractEntity> entityList;
 
     public View(Model model) {
-        list = model.getEntities();
+        entityList = model.getEntities();//сделать dto между Model view - entitiesProvider
+        setDoubleBuffered(true);
     }
     @Override
-    public void paint(Graphics g)
-    {
+    public void paint(Graphics g) {
         super.paint(g);
+
         Renderer renderer = new Renderer();
-        for (BaseEntity baseEntity : list) {
+        for (AbstractEntity baseEntity : entityList) {
             renderer.render(baseEntity, g);
         }
+        Grid.drawGrid(g, entityList.get(0).sizeRobot, Main.getWidthGameWindow(), Main.getHeightGameWindow());
+    }
+
+    public void onRedrawEvent()
+    {
+        EventQueue.invokeLater(this::repaint);
     }
 }

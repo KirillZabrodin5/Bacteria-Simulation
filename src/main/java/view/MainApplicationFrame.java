@@ -1,25 +1,27 @@
 package view;
 
-import javax.swing.*;
-
-import model.Model;
+import RunApplication.Main;
 import viewModel.CreateMenu;
+import viewModel.ViewModel;
 import viewModel.Window;
 
-public class ApplicationFrame extends JFrame
+import javax.swing.*;
+
+public class MainApplicationFrame extends JFrame
 {
     private final JDesktopPane desktopPane = new JDesktopPane();
-    private Model model = new Model();
-    private View view = new View(model);
-    public ApplicationFrame() {
+
+    public MainApplicationFrame(View view, ViewModel viewModel) {
+
         setContentPane(desktopPane);
-        Window createWindow = new Window();
+        Window createWindow = new Window(Main.getWidthGameWindow(), Main.getHeightGameWindow());
         addWindow(createWindow.createLogWindow());
-        addWindow(createWindow.createGameWindow(view));
+        addWindow(createWindow.createGameWindow(view, viewModel));
 
         setJMenuBar(generateMenuBar());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+
 
     protected void addWindow(JInternalFrame frame)
     {
@@ -34,9 +36,5 @@ public class ApplicationFrame extends JFrame
         menuBar.add(createMenu.createLookAndFeelMenu());
         menuBar.add(createMenu.createTestMenu());
         return menuBar;
-    }
-
-    public Model getModel() {
-        return model;
     }
 }

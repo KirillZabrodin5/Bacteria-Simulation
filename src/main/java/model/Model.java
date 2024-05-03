@@ -7,18 +7,21 @@ import java.util.ArrayList;
 
 public class Model
 {
-    public RobotAndTarget robotAndTarget = new RobotAndTarget(300, 300, 100, 100);
-    private final List<BaseEntity> entities = new ArrayList<>();
+    private final List<AbstractEntity> entities = new ArrayList<>();
     public Model() {
+        RobotAndTarget robotAndTarget = new RobotAndTarget(100, 400, 200, 200, 50);
+        //убрать size in ViewModel
         entities.add(robotAndTarget);
     }
 
     public void updateModel()
     {
-        robotAndTarget.update();
+        for(AbstractEntity entity : entities) {
+            entity.update();
+        }
     }
-
-    public List<BaseEntity> getEntities() {
+    public List<AbstractEntity> getEntities() {
         return entities;
     }
+    //размеры окна в клетках добавить get
 }
