@@ -30,7 +30,7 @@ public class ViewModel extends JComponent {
             }
         }, 0, 10);
         //размер клетки в пикселях считать
-        RobotAndTarget target = (RobotAndTarget)model.getEntities().get(0);
+        //RobotAndTarget target = (RobotAndTarget)model.getEntities().get(0);
 //        addMouseListener(new MouseAdapter()
 //        {
 //            @Override
