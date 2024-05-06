@@ -1,7 +1,6 @@
 package viewModel;
 
 import log.Logger;
-import view.MainApplicationFrame;
 
 import java.awt.event.KeyEvent;
 

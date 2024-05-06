@@ -9,7 +9,7 @@ public class Model
 {
     private final List<AbstractEntity> entities = new ArrayList<>();
     public Model() {
-        RobotAndTarget robotAndTarget = new RobotAndTarget(100, 400, 200, 200, 50);
+        Robot robotAndTarget = new Robot(100, 400, 200, 200, 50);
         //убрать size in ViewModel
         entities.add(robotAndTarget);
     }

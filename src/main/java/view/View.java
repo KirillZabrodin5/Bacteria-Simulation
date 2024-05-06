@@ -22,7 +22,7 @@ public class View extends JComponent {
         for (AbstractEntity baseEntity : entityList) {
             renderer.render(baseEntity, g);
         }
-        Grid.drawGrid(g, entityList.get(0).sizeRobot, Main.getWidthGameWindow(), Main.getHeightGameWindow());
+        Grid.drawGrid(g);
     }
 
     public void onRedrawEvent()

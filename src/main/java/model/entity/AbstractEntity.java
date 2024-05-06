@@ -1,19 +1,12 @@
 package model.entity;
 
 public abstract class AbstractEntity {
-    public int xRobot;
-    public int yRobot;
-    public int xTarget;
-    public int yTarget;
-    public int robotDirection;
-    public int sizeRobot;
+    public int x;
+    public int y;
 
-    public AbstractEntity(int xRobot, int yRobot, int xTarget, int yTarget, int sizeRobot) {
-        this.xRobot = xRobot;
-        this.yRobot = yRobot;
-        this.xTarget = xTarget;
-        this.yTarget = yTarget;
-        this.sizeRobot = sizeRobot;
+    public AbstractEntity(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
     public abstract void update();
 }

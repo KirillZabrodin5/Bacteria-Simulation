@@ -1,34 +1,30 @@
 package model.entity;
 
-import RunApplication.Main;
-import model.Steps;
 import utils.ApplicationMath;
 
 import java.awt.*;
 
-public class RobotAndTarget extends AbstractEntity {
+public class Robot extends AbstractEntity {
 
-    public RobotAndTarget(int xRobot, int yRobot, int xTarget, int yTarget, int sizeRobot) {
-        super(xRobot, yRobot, xTarget, yTarget, sizeRobot);
+    public Robot(int xRobot, int yRobot) {
+        super(xRobot, yRobot);
     }
     private volatile double robotDirection = 0;
 
     private final double maxVelocity = 0.1;
 
-    private final double maxAngularVelocity = 0.001;
-
-    public void moveRobot(double velocity, double angularVelocity, double duration) {
+    public void moveRobot(double velocity, double duration) {
         velocity = ApplicationMath.applyLimits(velocity, 0, maxVelocity);
 
         // Вычисляем новые координаты робота
-        double newX = xRobot + velocity * duration * Math.cos(robotDirection);
-        double newY = yRobot + velocity * duration * Math.sin(robotDirection);
+        double newX = x + velocity * duration * Math.cos(robotDirection);
+        double newY = y + velocity * duration * Math.sin(robotDirection);
 
         // Проверяем, не выходит ли робот за границы поля
-        if (newX >= 0 && newX < Main.getWidthGameWindow() && newY >= 0 && newY < Main.getHeightGameWindow()) {
-            xRobot = (int) newX;
-            yRobot = (int) newY;
-            robotDirection = ApplicationMath.angleTo(xRobot, yRobot, xTarget, yTarget);
+        if (newX >= 0 && newX < 50*10 && newY >= 0 && newY < 50*10) {
+            x = (int) newX;
+            y = (int) newY;
+            robotDirection = ApplicationMath.angleTo(x, y, xTarget, yTarget);
         }
 //        velocity = ApplicationMath.applyLimits(velocity, 0, maxVelocity);
 //        angularVelocity = ApplicationMath.applyLimits(angularVelocity, -maxAngularVelocity, maxAngularVelocity);
@@ -51,20 +47,9 @@ public class RobotAndTarget extends AbstractEntity {
     }
     @Override
     public void update() {
-//        double distance = ApplicationMath.distance(xTarget, yTarget, xRobot, yRobot);
-//        if (distance < 0.5) {
-//            return;
-//        }
-//        double angleToTarget = ApplicationMath.angleTo(xRobot, yRobot, xTarget, yTarget);
-//        double angularVelocity = 0;
-//        if (angleToTarget > robotDirection) {
-//            angularVelocity = maxAngularVelocity;
-//        }
-//        if (angleToTarget < robotDirection) {
-//            angularVelocity = -maxAngularVelocity;
-//        }
         double angleToTarget = ApplicationMath.angleTo(xRobot, yRobot, xTarget, yTarget);
         double angularVelocity = 0;
+        double maxAngularVelocity = 0.001;
         if (angleToTarget > robotDirection) {
             angularVelocity = maxAngularVelocity;
         }
@@ -75,18 +60,10 @@ public class RobotAndTarget extends AbstractEntity {
         moveRobot(maxVelocity, angularVelocity, 15);
 
         double distance = ApplicationMath.distance(xTarget, yTarget, xRobot, yRobot);
-        if (distance < sizeRobot/2) {
+        if (distance < sizeRobot) {
             // Генерируем новое случайное местоположение для цели
-            xTarget = (int) (Math.random() * (Main.getWidthGameWindow() / sizeRobot)) * sizeRobot;
-            yTarget = (int) (Math.random() * (Main.getHeightGameWindow() / sizeRobot)) * sizeRobot;
+            xTarget = (int) (Math.random() * (50*10 / sizeRobot)) * sizeRobot;
+            yTarget = (int) (Math.random() * (50*10 / sizeRobot)) * sizeRobot;
         }
-
-
-    }
-
-    public void setTargetPosition(Point p)
-    {
-        xTarget = p.x;
-        yTarget = p.y;
     }
 }
