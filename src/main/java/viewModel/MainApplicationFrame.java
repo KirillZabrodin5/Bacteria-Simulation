@@ -1,6 +1,7 @@
 package viewModel;
 
 import log.Logger;
+import model.InfoGameWindow;
 import view.View;
 
 import javax.swing.*;
@@ -8,8 +9,7 @@ import javax.swing.*;
 public class MainApplicationFrame extends JFrame
 {
     private final JDesktopPane desktopPane = new JDesktopPane();
-    public static final int WIDTH_GAME_WINDOW = 500;
-    public static final int LENGTH_GAME_WINDOW = 500;
+    private final InfoGameWindow infoGameWindow = new InfoGameWindow();
 
     public MainApplicationFrame(View view) {
         setContentPane(desktopPane);
@@ -22,7 +22,7 @@ public class MainApplicationFrame extends JFrame
 
     public GameWindow createGameWindow(View view) {
         GameWindow gameWindow = new GameWindow(view);
-        gameWindow.setSize(WIDTH_GAME_WINDOW, LENGTH_GAME_WINDOW);
+        gameWindow.setSize(infoGameWindow.getLengthGameWindow(), infoGameWindow.getLengthGameWindow());
         return gameWindow;
     }
 
@@ -46,7 +46,7 @@ public class MainApplicationFrame extends JFrame
     public JMenuBar generateMenuBar()
     {
         JMenuBar menuBar = new JMenuBar();
-        CreateMenu createMenu = new CreateMenu(this);
+        Menu createMenu = new Menu(this);
         menuBar.add(createMenu.createLookAndFeelMenu());
         menuBar.add(createMenu.createTestMenu());
         return menuBar;

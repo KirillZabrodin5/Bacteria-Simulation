@@ -5,23 +5,25 @@ import model.entity.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Model
-{
+public class Model {
     private final List<AbstractEntity> entities = new ArrayList<>();
+
     public Model() {
-        Robot robotAndTarget = new Robot(100, 400, 200, 200, 50);
-        //убрать size in ViewModel
-        entities.add(robotAndTarget);
+        Bacteria robot = new Bacteria(2, 2); //начиная с 2, 2 считаются неправильно координаты. В чем проблема
+        Food target = new Food(7, 7);
+        Poison poison = new Poison(0,0);
+        entities.add(robot);
+        entities.add(target);
+        entities.add(poison);
     }
 
-    public void updateModel()
-    {
-        for(AbstractEntity entity : entities) {
+    public void updateModel() {
+        for (AbstractEntity entity : entities) {
             entity.update();
         }
     }
+
     public List<AbstractEntity> getEntities() {
         return entities;
     }
-    //размеры окна в клетках добавить get
 }

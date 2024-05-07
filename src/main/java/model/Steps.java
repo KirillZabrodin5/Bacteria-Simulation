@@ -10,7 +10,7 @@ public enum Steps {
     DOWN_LEFT(-1,-1),
     DOWN_RIGHT(1,-1);
 
-    private final int x;   // in kilograms
+    private final int x;
     private final int y;
     Steps(int x, int y) {
         this.x = x;

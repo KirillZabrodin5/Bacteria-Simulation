@@ -1,5 +1,7 @@
 package model.entity;
 
+import viewModel.ViewModel;
+
 public abstract class AbstractEntity {
     public int x;
     public int y;

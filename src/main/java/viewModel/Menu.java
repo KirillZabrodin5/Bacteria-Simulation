@@ -9,9 +9,9 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-public class CreateMenu {
+public class Menu {
     private final MainApplicationFrame window;
-    public CreateMenu(MainApplicationFrame window) {
+    public Menu(MainApplicationFrame window) {
         this.window = window;
     }
     public JMenu createLookAndFeelMenu() {
