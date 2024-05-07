@@ -24,7 +24,7 @@ public class View extends JComponent {
     );
 
     public View(Model model) {
-        entitiesList = model.getEntities();//сделать dto между Model view - entitiesProvider
+        entitiesList = model.getEntities();//сделать dto между Model view - entitiesProvider интерфейс
         setDoubleBuffered(true);
     }
 

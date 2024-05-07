@@ -1,9 +1,9 @@
 package model;
 
-public class InfoGameWindow {
+public class InfoGameWindow { //наверное, лучше сделать все методы этого класса статиками
     private final int countOfCells = 10; //надо сделать количество клеток по вертикали, по горизонтали
 
-    private final int lengthGameWindow = 500;
+    private final int lengthGameWindow = 600;
 
     public int countCellSizeInPixels() {
         return lengthGameWindow / countOfCells;
@@ -23,5 +23,5 @@ public class InfoGameWindow {
 
     public int getCellSize() {
         return lengthGameWindow / countOfCells;
-    }
+    } //сделать float
 }
