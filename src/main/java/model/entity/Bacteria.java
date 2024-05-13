@@ -1,11 +1,9 @@
 package model.entity;
 
-import RunApplication.Main;
-import model.InfoGameWindow;
-import utils.ApplicationMath;
+import utils.GameWindowConfig;
 
 public class Bacteria extends AbstractEntity {
-    InfoGameWindow infoGameWindow = new InfoGameWindow();
+    GameWindowConfig infoGameWindow = new GameWindowConfig();
 //    private volatile double robotDirection = 0;
 //
 //    private final double maxVelocity = 0.1;

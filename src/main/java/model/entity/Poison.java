@@ -1,6 +1,6 @@
 package model.entity;
 
-import model.InfoGameWindow;
+import utils.GameWindowConfig;
 
 import java.awt.*;
 
@@ -15,7 +15,7 @@ public class Poison extends AbstractEntity {
     }
 
     public void createNewInstance(){
-        InfoGameWindow infoGameWindow = new InfoGameWindow();
+        GameWindowConfig infoGameWindow = new GameWindowConfig();
         x = (int) (Math.random() * infoGameWindow.getCountOfCells());
         y = (int) (Math.random() * infoGameWindow.getCountOfCells());
     }

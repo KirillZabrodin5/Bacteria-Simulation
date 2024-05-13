@@ -1,7 +1,7 @@
 package viewModel;
 
 import log.Logger;
-import model.InfoGameWindow;
+import utils.GameWindowConfig;
 import view.View;
 
 import javax.swing.*;
@@ -9,7 +9,7 @@ import javax.swing.*;
 public class MainApplicationFrame extends JFrame
 {
     private final JDesktopPane desktopPane = new JDesktopPane();
-    private final InfoGameWindow infoGameWindow = new InfoGameWindow();
+    private final GameWindowConfig infoGameWindow = new GameWindowConfig();
 
     public MainApplicationFrame(View view) {
         setContentPane(desktopPane);

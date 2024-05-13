@@ -1,17 +1,15 @@
 package view;
 
-import model.InfoGameWindow;
-import viewModel.ViewModel;
+import utils.GameWindowConfig;
 
 import java.awt.Graphics;
 import java.awt.Color;
 
 public final class Grid {
     public static void drawGrid(Graphics g) {
-        InfoGameWindow infoGameWindow = new InfoGameWindow();
         g.setColor(Color.WHITE);
-        int countOfCells = infoGameWindow.getCountOfCells();
-        int cellSize = infoGameWindow.getCellSize();
+        int countOfCells = GameWindowConfig.getCountOfCells();
+        int cellSize = GameWindowConfig.getCellSize();
 
         // Рисуем вертикальные линии
         for (int i = 0; i <= countOfCells; i++) {

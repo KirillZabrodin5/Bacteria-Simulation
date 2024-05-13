@@ -1,6 +1,6 @@
 package view.renderers;
 
-import model.InfoGameWindow;
+import utils.GameWindowConfig;
 import model.entity.Food;
 
 
@@ -11,7 +11,7 @@ public class RendererFood implements EntityRenderer<Food> {
     @Override
     public void render(Food entity, Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
-        int cellSize = new InfoGameWindow().getCellSize();
+        int cellSize = GameWindowConfig.getCellSize();
         drawFood(g2d, entity.x*cellSize, entity.y*cellSize, cellSize);
     }
     private static void drawFood(Graphics2D g, int x, int y, int cellSize)
