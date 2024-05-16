@@ -13,7 +13,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         SwingUtilities.invokeLater(() -> {
             ViewModel viewModel = new ViewModel();
 

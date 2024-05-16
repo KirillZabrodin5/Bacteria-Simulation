@@ -11,17 +11,20 @@ public class RendererFood implements EntityRenderer<Food> {
     @Override
     public void render(Food entity, Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
-        int cellSize = GameWindowConfig.getCellSize();
-        drawFood(g2d, entity.x*cellSize, entity.y*cellSize, cellSize);
+        int cellSizeInLength = GameWindowConfig.getCellSizeInLength();
+        int cellSizeInWidth = GameWindowConfig.getCellSizeInWidth();
+        int x = (int) GameWindowConfig.translate(entity.x).getX();
+        int y = (int) GameWindowConfig.translate(entity.y).getY();
+        drawFood(g2d, x, y, cellSizeInLength, cellSizeInWidth);
     }
-    private static void drawFood(Graphics2D g, int x, int y, int cellSize)
+    private static void drawFood(Graphics2D g, int x, int y, int cellSizeInLength, int cellSizeInWidth)
     {
         AffineTransform t = AffineTransform.getRotateInstance(0, 0, 0);
         g.setTransform(t);
         g.setColor(Color.GREEN);
-        RendererUtil.fillCell(g, x, y, cellSize, cellSize);
+        RendererUtil.fillCell(g, x, y, cellSizeInLength, cellSizeInWidth);
         g.setColor(Color.BLACK);
-        RendererUtil.drawCell(g, x, y, cellSize, cellSize);
+        RendererUtil.drawCell(g, x, y, cellSizeInLength, cellSizeInWidth);
     }
 
 }

@@ -14,12 +14,6 @@ public class Poison extends AbstractEntity {
 
     }
 
-    public void createNewInstance(){
-        GameWindowConfig infoGameWindow = new GameWindowConfig();
-        x = (int) (Math.random() * infoGameWindow.getCountOfCells());
-        y = (int) (Math.random() * infoGameWindow.getCountOfCells());
-    }
-
     public void setPoisonPosition(Point p) {
         x = p.x;
         y = p.y;

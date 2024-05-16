@@ -9,7 +9,6 @@ import javax.swing.*;
 public class MainApplicationFrame extends JFrame
 {
     private final JDesktopPane desktopPane = new JDesktopPane();
-    private final GameWindowConfig infoGameWindow = new GameWindowConfig();
 
     public MainApplicationFrame(View view) {
         setContentPane(desktopPane);
@@ -22,7 +21,7 @@ public class MainApplicationFrame extends JFrame
 
     public GameWindow createGameWindow(View view) {
         GameWindow gameWindow = new GameWindow(view);
-        gameWindow.setSize(infoGameWindow.getLengthGameWindow(), infoGameWindow.getLengthGameWindow());
+        gameWindow.setSize(GameWindowConfig.getLengthGameWindow(), GameWindowConfig.getWidthGameWindow());
         return gameWindow;
     }
 

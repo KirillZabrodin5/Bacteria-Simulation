@@ -18,7 +18,7 @@ public class ViewModel {
         update();
     }
 
-    public List<AbstractEntity> getEntities() {
+    public List<AbstractEntity> getEntities() { //вынести в интерфейс entitiesProvider
         return model.getEntities();
     }
 
@@ -29,7 +29,7 @@ public class ViewModel {
             public void run() {
                 model.updateModel();
             }
-        }, 0, 10);
+        }, 1000, 500);
         m_timer.schedule(new TimerTask() {
             @Override
             public void run() {

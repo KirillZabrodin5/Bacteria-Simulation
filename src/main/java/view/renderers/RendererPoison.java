@@ -11,17 +11,20 @@ public class RendererPoison implements EntityRenderer<Poison> {
     @Override
     public void render(Poison entity, Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
-        int cellSize = GameWindowConfig.getCellSize();
-        drawPoison(g2d, entity.x*cellSize, entity.y*cellSize, cellSize);
+        int cellSizeInLength = GameWindowConfig.getCellSizeInLength();
+        int cellSizeInWidth = GameWindowConfig.getCellSizeInWidth();
+        int x = (int) GameWindowConfig.translate(entity.x).getX();
+        int y = (int) GameWindowConfig.translate(entity.y).getY();
+        drawPoison(g2d, x, y, cellSizeInLength, cellSizeInWidth);
     }
-    private static void drawPoison(Graphics2D g, int x, int y, int cellSize)
+    private static void drawPoison(Graphics2D g, int x, int y, int cellSizeInLength, int cellSizeInWidth)
     {
         AffineTransform t = AffineTransform.getRotateInstance(0, 0, 0);
         g.setTransform(t);
         g.setColor(Color.RED);
-        RendererUtil.fillCell(g, x, y, cellSize, cellSize);
+        RendererUtil.fillCell(g, x, y, cellSizeInLength, cellSizeInWidth);
         g.setColor(Color.BLACK);
-        RendererUtil.drawCell(g, x, y, cellSize, cellSize);
+        RendererUtil.drawCell(g, x, y, cellSizeInLength, cellSizeInWidth);
     }
 
 }

@@ -1,10 +1,10 @@
 package utils;
 
 public final class ApplicationMath {
-    public static double distance(double x1, double y1, double x2, double y2)
+    public static double distance(int x1, int y1, int x2, int y2)
     {
-        double diffX = x1 - x2;
-        double diffY = y1 - y2;
+        int diffX = x1 - x2;
+        int diffY = y1 - y2;
         return Math.sqrt(diffX * diffX + diffY * diffY);
     }
 

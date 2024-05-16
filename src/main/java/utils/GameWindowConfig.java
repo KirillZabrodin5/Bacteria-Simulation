@@ -1,27 +1,40 @@
 package utils;
 
-public class GameWindowConfig { //наверное, лучше сделать все методы этого класса статиками
-    private static final int countOfCells = 10; //надо сделать количество клеток по вертикали, по горизонтали
+import java.awt.*;
 
-    private static final int lengthGameWindow = 600;
+public class GameWindowConfig {
+    private static final int countOfCellsInLength = 8; //надо сделать количество клеток по вертикали, по горизонтали
 
-    public static int countCellSizeInPixels() {
-        return lengthGameWindow / countOfCells;
+    private static final int countOfCellsInWidth = 8;
+    private static final int lengthGameWindow = 640; //длина по горизонтали
+
+    private static final int widthGameWindow = 640;
+
+    public static Point translate(int numberCell) { //из номера клетки в пиксели
+        return new Point(numberCell * getCellSizeInLength(), numberCell * getCellSizeInWidth());
     }
 
-    public static int translate(int numberCell) { //из номера клетки в пиксели
-        return numberCell * countCellSizeInPixels();
+    public static int getCountOfCellsInLength() {
+        return countOfCellsInLength;
     }
 
-    public static int getCountOfCells() {
-        return countOfCells;
+    public static int getCountOfCellsInWidth() {
+        return countOfCellsInWidth;
     }
 
     public static int getLengthGameWindow() {
         return lengthGameWindow;
     }
 
-    public static int getCellSize() {
-        return lengthGameWindow / countOfCells;
-    } //сделать float
+    public static int getWidthGameWindow() {
+        return lengthGameWindow;
+    }
+
+    public static int getCellSizeInLength() {
+        return lengthGameWindow / countOfCellsInLength;
+    }
+
+    public static int getCellSizeInWidth() {
+        return widthGameWindow / countOfCellsInWidth;
+    }
 }

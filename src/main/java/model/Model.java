@@ -7,20 +7,25 @@ import java.util.ArrayList;
 
 public class Model {
     private final List<AbstractEntity> entities = new ArrayList<>();
-
     public Model() {
-        Bacteria robot = new Bacteria(2, 3);
-        Food target = new Food(2, 2);
-        Poison poison = new Poison(2,4);
-        entities.add(robot);
-        entities.add(target);
-        entities.add(poison);
+        entities.add(new Bacteria(2, 3));
+        entities.add(new Food(2, 2));
+        entities.add(new Poison(2, 4));
     }
 
     public void updateModel() {
         for (AbstractEntity entity : entities) {
             entity.update();
         }
+        //move() из класса modelContext
+//        if (bacteria.x == food.x && bacteria.y == food.y) {
+//            food.createNewInstance();
+//        }
+//
+//        if (bacteria.x == poison.x && bacteria.y == poison.y) {
+//            bacteria.createNewInstance();
+//            poison.createNewInstance();
+//        }
     }
 
     public List<AbstractEntity> getEntities() {
