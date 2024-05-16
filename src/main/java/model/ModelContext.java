@@ -19,8 +19,7 @@ import java.util.Map;
 public class ModelContext {
     private final Model model;
     private List<Point> freeCells = new ArrayList<>();
-
-    private Map<Point, Class<AbstractEntity>> occupiedCells = new HashMap<>();
+    private Map<Point, Class<? extends AbstractEntity>> occupiedCells = new HashMap<>();
 
     public ModelContext(Model model) {
         this.model = model;
@@ -56,6 +55,6 @@ public class ModelContext {
     //либо создать список со свободными клетками
 
     private boolean isEmptyCell(Point coords) {
-        return occupiedCells.get(coords) != null;
+        return occupiedCells.containsKey(coords);
     }
 }

@@ -9,8 +9,11 @@ public class Model {
     private final List<AbstractEntity> entities = new ArrayList<>();
     public Model() {
         entities.add(new Bacteria(2, 3));
+        entities.add(new Bacteria(5,5));
+        entities.add(new Bacteria(11,5));
         entities.add(new Food(2, 2));
         entities.add(new Poison(2, 4));
+        entities.add(new Wall(11,11));
     }
 
     public void updateModel() {

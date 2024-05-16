@@ -1,7 +1,5 @@
 package model.entity;
 
-import utils.GameWindowConfig;
-
 import java.awt.*;
 
 public class Food extends AbstractEntity {

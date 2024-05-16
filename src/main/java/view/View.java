@@ -1,13 +1,7 @@
 package view;
 
-import model.entity.AbstractEntity;
-import model.entity.Bacteria;
-import model.entity.Food;
-import model.entity.Poison;
-import view.renderers.EntityRenderer;
-import view.renderers.RendererBacteria;
-import view.renderers.RendererFood;
-import view.renderers.RendererPoison;
+import model.entity.*;
+import view.renderers.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +13,8 @@ public class View extends JComponent {
     private final Map<Class<?>, EntityRenderer<?>> entityRendererMap = Map.of(
             Bacteria.class, new RendererBacteria(),
             Food.class, new RendererFood(),
-            Poison.class, new RendererPoison()
+            Poison.class, new RendererPoison(),
+            Wall.class, new RendererWall()
     );
 
     public View(List<AbstractEntity> entitiesList) {

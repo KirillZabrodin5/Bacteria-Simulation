@@ -1,29 +1,28 @@
 package view.renderers;
 
+import model.entity.Wall;
 import utils.GameWindowConfig;
-import model.entity.Food;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class RendererFood implements EntityRenderer<Food> {
+public class RendererWall implements EntityRenderer<Wall> {
     @Override
-    public void render(Food entity, Graphics g) {
-        Graphics2D g2d = (Graphics2D)g;
+    public void render(Wall entity, Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
         int cellSizeInLength = GameWindowConfig.getCellSizeInLength();
         int cellSizeInWidth = GameWindowConfig.getCellSizeInWidth();
         int x = (int) GameWindowConfig.translate(entity.x).getX();
         int y = (int) GameWindowConfig.translate(entity.y).getY();
-        drawFood(g2d, x, y, cellSizeInLength, cellSizeInWidth);
+        drawWall(g2d, x, y, cellSizeInLength, cellSizeInWidth);
     }
-    private static void drawFood(Graphics2D g, int x, int y, int cellSizeInLength, int cellSizeInWidth)
-    {
+
+    private static void drawWall(Graphics2D g, int x, int y, int cellSizeInLength, int cellSizeInWidth) {
         AffineTransform t = AffineTransform.getRotateInstance(0, 0, 0);
         g.setTransform(t);
-        g.setColor(Color.GREEN);
+        g.setColor(Color.GRAY);
         RendererUtil.fillCell(g, x, y, cellSizeInLength, cellSizeInWidth);
         g.setColor(Color.BLACK);
         RendererUtil.drawCell(g, x, y, cellSizeInLength, cellSizeInWidth);
     }
-
 }
