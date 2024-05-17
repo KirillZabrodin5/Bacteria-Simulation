@@ -12,8 +12,8 @@ public class RendererBacteria implements EntityRenderer<Bacteria> {
         Graphics2D g2d = (Graphics2D)g;
         int cellSizeInLength = GameWindowConfig.getCellSizeInLength();
         int cellSizeInWidth = GameWindowConfig.getCellSizeInWidth();
-        int x = (int) GameWindowConfig.translate(entity.x).getX();
-        int y = (int) GameWindowConfig.translate(entity.y).getY();
+        int x = (int) GameWindowConfig.translate(entity.getCoords().x).getX();
+        int y = (int) GameWindowConfig.translate(entity.getCoords().y).getY();
         drawBacteria(g2d, x, y, cellSizeInLength, cellSizeInWidth);
     }
     private static void drawBacteria(Graphics2D g, int x, int y, int cellSizeInLength, int cellSizeInWidth)

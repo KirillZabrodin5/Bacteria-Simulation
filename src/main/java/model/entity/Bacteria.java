@@ -3,15 +3,16 @@ package model.entity;
 import model.Steps;
 import utils.GameWindowConfig;
 
+import java.awt.Point;
 import java.util.Random;
 
 public class Bacteria extends AbstractEntity {
     //тут создать 2 листа с едой и ядом? - можно словарь map
-    public Bacteria(int x, int y) {
-        super(x, y);
+    public Bacteria(Point coords) {
+        super(coords);
     }
 
-    public void moveRobot() {
+    public void moveBacteria() {
         //делать рандомный ход, если он валидный (isVald() - не врезается в стену)
         //если встретилась еда, то съесть и встать на её место и создать новую еду
         //если встретился яд, то умереть и создать новую бактерию и новый яд с рандомными координатами
@@ -22,9 +23,9 @@ public class Bacteria extends AbstractEntity {
         int number = random.nextInt(lenSteps);
 
         Steps current = steps[number];
-        if (isValidStepByX(x + current.getX()) && isValidStepByY(y + current.getY())) {
-            x += current.getX();
-            y += current.getY();
+        if (isValidStepByX(getCoords().x + current.getX()) && isValidStepByY(getCoords().y + current.getY())) {
+            getCoords().x += current.getX();
+            getCoords().y += current.getY();
         }
     }
 
@@ -44,7 +45,6 @@ public class Bacteria extends AbstractEntity {
 
     @Override
     public void update() {
-        moveRobot();
+        moveBacteria();
     }
-
 }

@@ -1,12 +1,19 @@
 package model.entity;
 
-public abstract class AbstractEntity {
-    public int x;
-    public int y;
+import java.awt.Point;
 
-    public AbstractEntity(int x, int y) {
-        this.x = x;
-        this.y = y;
+public abstract class AbstractEntity {
+    private Point coords;
+
+    public AbstractEntity(Point coords) {
+        this.coords = coords;
+    }
+
+    public Point getCoords() {
+        return coords;
+    }
+    public void setCoords(Point coords) {
+        this.coords = coords;
     }
 
     public abstract void update();

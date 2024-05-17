@@ -1,8 +1,10 @@
 package model.entity;
 
+import java.awt.*;
+
 public class Wall extends AbstractEntity {
-    public Wall(int x, int y) {
-        super(x,y);
+    public Wall(Point coords) {
+        super(coords);
     }
     @Override
     public void update() {
