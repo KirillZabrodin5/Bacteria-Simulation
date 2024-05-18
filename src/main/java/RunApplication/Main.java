@@ -1,5 +1,9 @@
 package RunApplication;
 
+import model.Model;
+import view.View;
+import viewModel.EntitiesProvider;
+import viewModel.EntitiesProviderFromModelToView;
 import viewModel.MainApplicationFrame;
 import viewModel.ViewModel;
 
@@ -14,7 +18,10 @@ public class Main {
             e.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
-            ViewModel viewModel = new ViewModel();
+            Model model = new Model();
+            EntitiesProvider entitiesProvider = new EntitiesProviderFromModelToView(model);
+            View view = new View(entitiesProvider);
+            ViewModel viewModel = new ViewModel(model, view);
 
             MainApplicationFrame frame = new MainApplicationFrame(viewModel.getView());
             frame.pack();

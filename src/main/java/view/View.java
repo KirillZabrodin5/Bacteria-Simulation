@@ -2,6 +2,7 @@ package view;
 
 import model.entity.*;
 import view.renderers.*;
+import viewModel.EntitiesProvider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +18,8 @@ public class View extends JComponent {
             Wall.class, new RendererWall()
     );
 
-    public View(List<AbstractEntity> entitiesList) {
-        this.entitiesList = entitiesList;
+    public View(EntitiesProvider entitiesProvider) {
+        this.entitiesList = entitiesProvider.getEntities();
         setDoubleBuffered(true);
     }
 

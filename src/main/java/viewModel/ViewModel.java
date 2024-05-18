@@ -1,10 +1,8 @@
 package viewModel;
 
 import model.Model;
-import model.entity.AbstractEntity;
 import view.View;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,14 +10,10 @@ public class ViewModel {
     private final Model model;
     private final View view;
 
-    public ViewModel() {
-        model = new Model();
-        view = new View(getEntities());
+    public ViewModel(Model model, View view) {
+        this.model = model;
+        this.view = view;
         update();
-    }
-
-    public List<AbstractEntity> getEntities() { //вынести в интерфейс entitiesProvider
-        return model.getEntities();
     }
 
     public void update() {
@@ -29,7 +23,7 @@ public class ViewModel {
             public void run() {
                 model.updateModel();
             }
-        }, 1000, 500);
+        }, 1000, 1500);
         m_timer.schedule(new TimerTask() {
             @Override
             public void run() {

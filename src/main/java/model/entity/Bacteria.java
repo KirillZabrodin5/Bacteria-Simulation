@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.Model;
 import model.Steps;
 import utils.GameWindowConfig;
 
@@ -7,7 +8,6 @@ import java.awt.Point;
 import java.util.Random;
 
 public class Bacteria extends AbstractEntity {
-    //тут создать 2 листа с едой и ядом? - можно словарь map
     public Bacteria(Point coords) {
         super(coords);
     }
@@ -45,6 +45,7 @@ public class Bacteria extends AbstractEntity {
 
     @Override
     public void update() {
-        moveBacteria();
+        new Model().move(this);
+        //moveBacteria();
     }
 }
