@@ -1,5 +1,7 @@
 package model.entity;
 
+import model.ModelContext;
+
 import java.awt.Point;
 
 public abstract class AbstractEntity {
@@ -16,5 +18,5 @@ public abstract class AbstractEntity {
         this.coords = coords;
     }
 
-    public abstract void update();
+    public abstract void update(ModelContext modelContext);
 }

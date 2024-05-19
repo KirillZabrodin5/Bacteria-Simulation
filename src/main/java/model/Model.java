@@ -12,6 +12,7 @@ public class Model {
     private List<AbstractEntity> oldEntities = new ArrayList<>();
     private List<Point> freeCells = new ArrayList<>();
     private Map<Point, AbstractEntity> entitiesMap = new HashMap<>();
+    private ModelContext modelContext = new ModelContext(this);
 
     public Model() {
         fillFreeCells();
@@ -23,39 +24,33 @@ public class Model {
 
     public void updateModel() {
         for (AbstractEntity entity : entitiesList) {
-            move(entity, generateValidStep(entity));
+            entity.update(modelContext);
         }
+        System.out.println("Длина entitiesList до: " + entitiesList.size());
         removeEntities();
         addEntities();
+        System.out.println("Длина entitiesList после: " + entitiesList.size());
     }
 
     private void createEntities() {
-        entitiesList.add(new Bacteria(new Point(0,0)));
-        freeCells.remove(new Point(0,0));
-        entitiesList.add(new Wall(new Point(0,2)));
-        freeCells.remove(new Point(0,2));
-        entitiesList.add(new Wall(new Point(1,0)));
-        freeCells.remove(new Point(1,0));
-        entitiesList.add(new Wall(new Point(1,1)));
-        freeCells.remove(new Point(1,1));
-        entitiesList.add(new Wall(new Point(1,2)));
-        freeCells.remove(new Point(1,2));
-        entitiesList.add(new Wall(getRandomFreeCellCoords()));
-        entitiesList.add(new Wall(getRandomFreeCellCoords()));
-        entitiesList.add(new Wall(getRandomFreeCellCoords()));
-
-
-
-
         entitiesList.add(new Bacteria(getRandomFreeCellCoords()));
         entitiesList.add(new Bacteria(getRandomFreeCellCoords()));
         entitiesList.add(new Bacteria(getRandomFreeCellCoords()));
+        entitiesList.add(new Bacteria(getRandomFreeCellCoords()));
+        entitiesList.add(new Bacteria(getRandomFreeCellCoords()));
+
         entitiesList.add(new Food(getRandomFreeCellCoords()));
         entitiesList.add(new Food(getRandomFreeCellCoords()));
+        entitiesList.add(new Food(getRandomFreeCellCoords()));
+        entitiesList.add(new Food(getRandomFreeCellCoords()));
+        entitiesList.add(new Food(getRandomFreeCellCoords()));
+
         entitiesList.add(new Poison(getRandomFreeCellCoords()));
         entitiesList.add(new Poison(getRandomFreeCellCoords()));
         entitiesList.add(new Poison(getRandomFreeCellCoords()));
-        entitiesList.add(new Wall(getRandomFreeCellCoords()));
+        entitiesList.add(new Poison(getRandomFreeCellCoords()));
+        entitiesList.add(new Poison(getRandomFreeCellCoords()));
+
         entitiesList.add(new Wall(getRandomFreeCellCoords()));
         entitiesList.add(new Wall(getRandomFreeCellCoords()));
         entitiesList.add(new Wall(getRandomFreeCellCoords()));
@@ -63,54 +58,40 @@ public class Model {
         entitiesList.add(new Wall(getRandomFreeCellCoords()));
     }
 
-
-//    Была предложена такая сигнатура метода move, но я не понял для чего и как этот метод реализовать
-//    /**
-//     * Этот метод нужен для реализации движения всех entities
-//     *
-//     * @param entity
-//     * @param step
-//     * @param availableEntitiesToMove
-//     * @return возвращает entity, на которую наступила бактерия, либо null, если не наступила
-//     */
-//    @SafeVarargs
-//    public final AbstractEntity move(AbstractEntity entity, Steps step,
-//                           Class<? extends AbstractEntity>... availableEntitiesToMove) {
-//        return null;
+//    public final void move(AbstractEntity entity, Steps step) {
+//        if (entity instanceof Bacteria) {
+//            int oldX = entity.getCoords().x;
+//            int oldY = entity.getCoords().y;
+//            int newX = entity.getCoords().x + step.getX();
+//            int newY = entity.getCoords().y + step.getY();
+//            AbstractEntity entityOnCoords = getEntityOnCoords(new Point(newX, newY));
+//            if (entityOnCoords == null) {
+//                moveBacteria(entity, oldX, oldY, newX, newY);
+//            } else {
+//                if (entityOnCoords instanceof Wall || entityOnCoords instanceof Bacteria) {
+//                    //надо ли что-нибудь в этом if делать?
+//                } else if (entityOnCoords instanceof Food) {
+//                    moveBacteria(entity, oldX, oldY, newX, newY);
+//                    eatFood((Food) entityOnCoords);
+//
+//                } else if (entityOnCoords instanceof Poison) {
+//                    eatPoison((Poison) entityOnCoords);
+//                    killCell(entity);
+//                }
+//            }
+//        }
 //    }
 
-    public final void move(AbstractEntity entity, Steps step) {
-        if (entity instanceof Bacteria) {
-            int oldX = entity.getCoords().x;
-            int oldY = entity.getCoords().y;
-            int newX = entity.getCoords().x + step.getX();
-            int newY = entity.getCoords().y + step.getY();
-            AbstractEntity entityOnCoords = getEntityOnCoords(new Point(newX, newY));
-            if (entityOnCoords != null) {
-                if (entityOnCoords instanceof Wall || entityOnCoords instanceof Bacteria) {
-                    //надо ли что-нибудь в этом if делать?
-                } else if (entityOnCoords instanceof Food) {
-                    eatFood((Food) entityOnCoords);
-                    moveBacteria(entity, oldX, oldY, newX, newY);
-                } else if (entityOnCoords instanceof Poison) {
-                    eatPoison((Poison) entityOnCoords);
-                    moveBacteria(entity, oldX, oldY, newX, newY);
-                }
-            } else {
-                moveBacteria(entity, oldX, oldY, newX, newY);
-            }
-        }
+    public void moveBacteria(Bacteria bacteria, int oldX, int oldY, int newX, int newY) {
+        killEntity(bacteria);
+
+        bacteria.setCoords(new Point(newX, newY));
+
+        entitiesMap.put(bacteria.getCoords(), bacteria);
+        freeCells.remove(bacteria.getCoords());
     }
 
-    private void moveBacteria(AbstractEntity entity, int oldX, int oldY, int newX, int newY) {
-        entitiesMap.remove(new Point(oldX, oldY));
-        freeCells.add(new Point(oldX, oldY));
-        entity.setCoords(new Point(newX, newY));
-        entitiesMap.put(entity.getCoords(), entity);
-        freeCells.remove(entity.getCoords());
-    }
-
-    private Steps generateValidStep(AbstractEntity entity) {
+    public Steps generateValidStep(AbstractEntity entity) {
         //мб здесь делать проверку, что в новых координтах нет стены или другой бактерии?
         final Steps[] steps = Steps.values();
         final int lenSteps = steps.length;
@@ -127,6 +108,29 @@ public class Model {
         return current;
     }
 
+    public void eatFood(Food food) {
+        killEntity(food);
+        Point newCoords = getRandomFreeCellCoords();
+        food.setCoords(newCoords);
+        entitiesMap.put(newCoords, food);
+        freeCells.remove(newCoords);
+    }
+
+//    public void eatPoison(Poison poison) {
+//        Food food = new Food(poison.getCoords());
+//        entitiesMap.put(poison.getCoords(), food);
+//        newEntities.add(food);
+//        oldEntities.add(poison);
+//    }
+
+    public void eatPoison(Bacteria bacteria) {
+        killEntity(bacteria);
+        Poison poison = new Poison(bacteria.getCoords());
+        entitiesMap.put(poison.getCoords(), poison);
+        newEntities.add(poison);
+        oldEntities.add(bacteria);
+    }
+
     private boolean isValidStepByX(int coordinate) {
         if (coordinate < 0 || coordinate >= GameWindowConfig.getCountOfCellsInLength()) {
             return false;
@@ -141,25 +145,11 @@ public class Model {
         return true;
     }
 
-    private void eatFood(Food food) {
-        killCell(food);
-        Point newCoords = getRandomFreeCellCoords();
-        food.setCoords(newCoords);
-        entitiesMap.put(newCoords, food);
-        freeCells.remove(newCoords);
-    }
 
-    public void eatPoison(Poison poison) {
-        killCell(poison);
-        Food food = new Food(poison.getCoords());
-        entitiesMap.put(poison.getCoords(), food);
-        newEntities.add(food);
-        oldEntities.add(poison);
-    }
-
-    public void killCell(AbstractEntity entity) {
+    public void killEntity(AbstractEntity entity) {
         entitiesMap.remove(entity.getCoords());
         freeCells.add(entity.getCoords());
+        //oldEntities.add(entity);
     }
 
     public void addEntities() {

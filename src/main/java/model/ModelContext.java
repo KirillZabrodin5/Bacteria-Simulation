@@ -1,11 +1,11 @@
 package model;
 
-
 import model.entity.AbstractEntity;
-import utils.GameWindowConfig;
+import model.entity.Bacteria;
+import model.entity.Food;
+import model.entity.Poison;
 
 import java.awt.Point;
-import java.util.*;
 
 /**
  * Если я правильно понял, то этот класс должен просто инкапсулировать модель,
@@ -24,7 +24,49 @@ public class ModelContext {
         this.model = model;
     }
 
-//
+
+    public Steps generateValidStep(AbstractEntity entity) {
+        return model.generateValidStep(entity);
+    }
+
+        //Была предложена такая сигнатура метода move, но я не понял для чего и как этот метод реализовать
+    /**
+     * Этот метод нужен для реализации движения всех entities
+     *
+     * @param entity
+     * @param step
+     * @param availableEntitiesToMove
+     * @return возвращает entity, на которую наступила бактерия, либо null, если не наступила
+     */
+    @SafeVarargs
+    public final AbstractEntity move(AbstractEntity entity, Steps step,
+                           Class<? extends AbstractEntity>... availableEntitiesToMove) {
+        int newX = entity.getCoords().x + step.getX();
+        int newY = entity.getCoords().y + step.getY();
+        AbstractEntity entityOnCoords = model.getEntityOnCoords(new Point(newX, newY));
+        for (Class<? extends AbstractEntity> aClass : availableEntitiesToMove) {
+           if (aClass.isInstance(entityOnCoords)) {
+               return entityOnCoords;
+           }
+        }
+        return null;
+    }
+
+    public void moveBacteria(Bacteria bacteria, int oldX, int oldY, int newX, int newY) {
+        model.moveBacteria(bacteria, oldX, oldY, newX, newY);
+    }
+
+    public void eatFood(Food food){
+        model.eatFood(food);
+    }
+
+    public void eatPoison(Bacteria bacteria){
+        model.eatPoison(bacteria);
+    }
+
+    public void killCell(AbstractEntity entity) {
+        model.killEntity(entity);
+    }
 //    public void setNewCoordinates(AbstractEntity entity) {
 //        x = (int) (Math.random() * GameWindowConfig.getCountOfCells());
 //        y = (int) (Math.random() * GameWindowConfig.getCountOfCells());

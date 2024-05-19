@@ -1,5 +1,7 @@
 package model.entity;
 
+import model.ModelContext;
+
 import java.awt.*;
 
 public class Wall extends AbstractEntity {
@@ -7,7 +9,7 @@ public class Wall extends AbstractEntity {
         super(coords);
     }
     @Override
-    public void update() {
+    public void update(ModelContext modelContext) {
 
     }
 }
