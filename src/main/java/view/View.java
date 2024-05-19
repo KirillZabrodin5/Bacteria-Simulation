@@ -19,7 +19,7 @@ public class View extends JComponent {
     );
 
     public View(EntitiesProvider entitiesProvider) {
-        this.entitiesList = entitiesProvider.getEntities();
+        this.entitiesList = entitiesProvider.getEntitiesList();
         setDoubleBuffered(true);
     }
 

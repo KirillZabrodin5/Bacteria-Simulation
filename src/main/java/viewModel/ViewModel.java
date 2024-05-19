@@ -23,13 +23,13 @@ public class ViewModel {
             public void run() {
                 model.updateModel();
             }
-        }, 1000, 1500);
+        }, 1000, 500);
         m_timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 view.updateView();
             }
-        }, 0, 50);
+        }, 0, 100);
     }
 
     public Model getModel() {

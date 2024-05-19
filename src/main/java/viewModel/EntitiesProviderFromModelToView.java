@@ -12,7 +12,7 @@ public class EntitiesProviderFromModelToView implements EntitiesProvider {
     }
 
     @Override
-    public List<AbstractEntity> getEntities() {
-        return model.getEntities();
+    public List<AbstractEntity> getEntitiesList() {
+        return model.getEntitiesList();
     }
 }
