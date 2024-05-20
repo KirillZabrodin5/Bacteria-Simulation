@@ -27,21 +27,12 @@ public class View extends JComponent {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        Iterator<AbstractEntity> iterator = entitiesList.iterator();
-        synchronized (entitiesList) {
-            while (iterator.hasNext()) {
-                AbstractEntity abstractEntity = iterator.next();
-                EntityRenderer<AbstractEntity> renderer = (EntityRenderer<AbstractEntity>) entityRendererMap
-                        .get(abstractEntity.getClass());
-                renderer.render(abstractEntity, g);
-            }
+        for (AbstractEntity entity : entitiesList) {
+            EntityRenderer<AbstractEntity> renderer = (EntityRenderer<AbstractEntity>) entityRendererMap
+                    .get(entity.getClass());
+            renderer.render(entity, g);
         }
 
-//        for (AbstractEntity abstractEntity : entitiesList) {
-//            EntityRenderer<AbstractEntity> renderer = (EntityRenderer<AbstractEntity>) entityRendererMap
-//                    .get(abstractEntity.getClass());
-//            renderer.render(abstractEntity, g);
-//        }
         Grid.drawGrid(g);
     }
 

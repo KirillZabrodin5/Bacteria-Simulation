@@ -14,14 +14,18 @@ public class RendererBacteria implements EntityRenderer<Bacteria> {
         int cellSizeInWidth = GameWindowConfig.getCellSizeInWidth();
         int x = (int) GameWindowConfig.translate(entity.getCoords().x).getX();
         int y = (int) GameWindowConfig.translate(entity.getCoords().y).getY();
-        drawBacteria(g2d, x, y, cellSizeInLength, cellSizeInWidth);
+        int hp = entity.getHp();
+        drawBacteria(g2d, x, y, hp, cellSizeInLength, cellSizeInWidth);
     }
-    private static void drawBacteria(Graphics2D g, int x, int y, int cellSizeInLength, int cellSizeInWidth)
+    private static void drawBacteria(Graphics2D g, int x, int y, int hp, int cellSizeInLength, int cellSizeInWidth)
     {
         AffineTransform t = AffineTransform.getRotateInstance(0, 0, 0);
         g.setTransform(t);
         g.setColor(Color.BLUE);
         RendererUtil.fillCell(g, x, y, cellSizeInLength, cellSizeInWidth);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 22));
+        g.drawString(String.valueOf(hp), x + cellSizeInLength/2 - 10, y + cellSizeInWidth/2 + 10);
         g.setColor(Color.BLACK);
         RendererUtil.drawCell(g, x, y, cellSizeInLength, cellSizeInWidth);
     }

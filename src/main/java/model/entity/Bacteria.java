@@ -6,6 +6,7 @@ import model.Steps;
 import java.awt.*;
 
 public class Bacteria extends AbstractEntity {
+    private int hp = 15;
     public Bacteria(Point coords) {
         super(coords);
     }
@@ -23,6 +24,7 @@ public class Bacteria extends AbstractEntity {
             } else if (encounteredEntity instanceof Food) {
                 modelContext.eatFood((Food) encounteredEntity);
                 modelContext.moveBacteria(this, newX, newY);
+                hp+=10;
             } else if (encounteredEntity instanceof Poison) {
                 modelContext.eatPoison(this);
             }
@@ -32,5 +34,9 @@ public class Bacteria extends AbstractEntity {
     @Override
     public void update(ModelContext modelContext) {
         moveBacteria(modelContext);
+    }
+
+    public int getHp() {
+        return hp;
     }
 }
