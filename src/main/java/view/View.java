@@ -6,6 +6,7 @@ import viewModel.EntitiesProvider;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +27,21 @@ public class View extends JComponent {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        for (AbstractEntity abstractEntity : entitiesList) {
-            EntityRenderer<AbstractEntity> renderer = (EntityRenderer<AbstractEntity>) entityRendererMap
-                    .get(abstractEntity.getClass());
-            renderer.render(abstractEntity, g);
+        Iterator<AbstractEntity> iterator = entitiesList.iterator();
+        synchronized (entitiesList) {
+            while (iterator.hasNext()) {
+                AbstractEntity abstractEntity = iterator.next();
+                EntityRenderer<AbstractEntity> renderer = (EntityRenderer<AbstractEntity>) entityRendererMap
+                        .get(abstractEntity.getClass());
+                renderer.render(abstractEntity, g);
+            }
         }
+
+//        for (AbstractEntity abstractEntity : entitiesList) {
+//            EntityRenderer<AbstractEntity> renderer = (EntityRenderer<AbstractEntity>) entityRendererMap
+//                    .get(abstractEntity.getClass());
+//            renderer.render(abstractEntity, g);
+//        }
         Grid.drawGrid(g);
     }
 

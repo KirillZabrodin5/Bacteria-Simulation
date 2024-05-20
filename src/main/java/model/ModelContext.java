@@ -3,9 +3,8 @@ package model;
 import model.entity.AbstractEntity;
 import model.entity.Bacteria;
 import model.entity.Food;
-import model.entity.Poison;
 
-import java.awt.Point;
+import java.awt.*;
 
 /**
  * Если я правильно понял, то этот класс должен просто инкапсулировать модель,
@@ -24,15 +23,12 @@ public class ModelContext {
         this.model = model;
     }
 
-
     public Steps generateValidStep(AbstractEntity entity) {
         return model.generateValidStep(entity);
     }
 
-        //Была предложена такая сигнатура метода move, но я не понял для чего и как этот метод реализовать
     /**
      * Этот метод нужен для реализации движения всех entities
-     *
      * @param entity
      * @param step
      * @param availableEntitiesToMove
@@ -52,8 +48,8 @@ public class ModelContext {
         return null;
     }
 
-    public void moveBacteria(Bacteria bacteria, int oldX, int oldY, int newX, int newY) {
-        model.moveBacteria(bacteria, oldX, oldY, newX, newY);
+    public void moveBacteria(Bacteria bacteria, int newX, int newY) {
+        model.moveBacteria(bacteria, newX, newY);
     }
 
     public void eatFood(Food food){
@@ -67,14 +63,4 @@ public class ModelContext {
     public void killCell(AbstractEntity entity) {
         model.killEntity(entity);
     }
-//    public void setNewCoordinates(AbstractEntity entity) {
-//        x = (int) (Math.random() * GameWindowConfig.getCountOfCells());
-//        y = (int) (Math.random() * GameWindowConfig.getCountOfCells());
-//    }
-    //проверять, что координаты свободные через while(true) пока не получится
-    //либо создать список со свободными клетками
-
-//    private boolean isEmptyCell(Point coords) {
-//        return occupiedCells.containsKey(coords);
-//    }
 }

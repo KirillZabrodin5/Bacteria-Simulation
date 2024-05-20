@@ -9,7 +9,5 @@ public class Wall extends AbstractEntity {
         super(coords);
     }
     @Override
-    public void update(ModelContext modelContext) {
-
-    }
+    public void update(ModelContext modelContext) {}
 }

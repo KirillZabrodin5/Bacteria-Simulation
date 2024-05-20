@@ -10,7 +10,5 @@ public class Food extends AbstractEntity {
     }
 
     @Override
-    public void update(ModelContext modelContext) {
-
-    }
+    public void update(ModelContext modelContext) {}
 }

@@ -12,7 +12,7 @@ public class MainApplicationFrame extends JFrame
 
     public MainApplicationFrame(View view) {
         setContentPane(desktopPane);
-        addWindow(createLogWindow());
+        //addWindow(createLogWindow());
         addWindow(createGameWindow(view));
 
         setJMenuBar(generateMenuBar());

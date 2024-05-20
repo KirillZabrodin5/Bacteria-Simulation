@@ -22,14 +22,9 @@ public class ViewModel {
             @Override
             public void run() {
                 model.updateModel();
-            }
-        }, 1000, 1500);
-        m_timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
                 view.updateView();
             }
-        }, 0, 10);
+        }, 1000, 500);
     }
 
     public Model getModel() {
