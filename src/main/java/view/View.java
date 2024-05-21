@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public class View extends JComponent {
-    private final List<AbstractEntity> entitiesList;
+
+    private final EntitiesProvider entitiesProvider;
     private final Map<Class<?>, EntityRenderer<?>> entityRendererMap = Map.of(
             Bacteria.class, new RendererBacteria(),
             Food.class, new RendererFood(),
@@ -20,19 +21,18 @@ public class View extends JComponent {
     );
 
     public View(EntitiesProvider entitiesProvider) {
-        this.entitiesList = entitiesProvider.getEntitiesList();
+        this.entitiesProvider = entitiesProvider;
         setDoubleBuffered(true);
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        for (AbstractEntity entity : entitiesList) {
+        for (AbstractEntity entity : entitiesProvider.getEntitiesList()) {
             EntityRenderer<AbstractEntity> renderer = (EntityRenderer<AbstractEntity>) entityRendererMap
                     .get(entity.getClass());
             renderer.render(entity, g);
         }
-
         Grid.drawGrid(g);
     }
 

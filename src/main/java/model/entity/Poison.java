@@ -1,9 +1,8 @@
 package model.entity;
 
 import model.ModelContext;
-import utils.GameWindowConfig;
 
-import java.awt.*;
+import java.awt.Point;
 
 public class Poison extends AbstractEntity {
     public Poison(Point coords) {

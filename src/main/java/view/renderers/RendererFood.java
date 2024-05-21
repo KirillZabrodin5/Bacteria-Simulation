@@ -1,6 +1,6 @@
 package view.renderers;
 
-import utils.GameWindowConfig;
+import viewModel.GameWindowConfig;
 import model.entity.Food;
 
 import java.awt.*;

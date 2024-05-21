@@ -1,10 +1,10 @@
-package utils;
+package viewModel;
 
 import java.awt.*;
 
 public final class GameWindowConfig {
-    private static final int countOfCellsInLength = 12;
-    private static final int countOfCellsInWidth = 12;
+    private static final int countOfCellsInLength = 15;
+    private static final int countOfCellsInWidth = 15;
     private static final int lengthGameWindow = 740; //длина по горизонтали
     private static final int widthGameWindow = 740;
 

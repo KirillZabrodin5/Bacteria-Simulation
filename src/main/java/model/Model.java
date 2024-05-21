@@ -1,18 +1,19 @@
 package model;
 
 import model.entity.*;
-import utils.GameWindowConfig;
+import viewModel.GameWindowConfig;
 
 import java.awt.Point;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Model {
-    private List<AbstractEntity> entitiesList = new ArrayList<>();
-    private List<AbstractEntity> newEntities = new ArrayList<>();
-    private List<AbstractEntity> oldEntities = new ArrayList<>();
-    private List<Point> freeCells = new ArrayList<>();
-    private Map<Point, AbstractEntity> entitiesMap = new HashMap<>();
-    private ModelContext modelContext = new ModelContext(this);
+    private final List<AbstractEntity> entitiesList = new ArrayList<>();
+    private final List<AbstractEntity> newEntities = new CopyOnWriteArrayList<>();
+    private final List<AbstractEntity> entitiesToRemove = new CopyOnWriteArrayList<>(); //класс entitiesRepository - 3 поля
+    private final List<Point> freeCells = new ArrayList<>();
+    private final Map<Point, AbstractEntity> entitiesMap = new HashMap<>(); //класс для поля
+    private final ModelContext modelContext = new ModelContext(this);
 
     public Model() {
         fillFreeCells();
@@ -56,14 +57,14 @@ public class Model {
         entitiesList.add(new Wall(getRandomFreeCellCoords()));
     }
 
-    public void moveBacteria(Bacteria bacteria, int newX, int newY) { //тут все норм, имхо
+    public void moveBacteria(Bacteria bacteria, int newX, int newY) {
         killEntity(bacteria);
         bacteria.setCoords(new Point(newX, newY));
         entitiesMap.put(bacteria.getCoords(), bacteria);
         freeCells.remove(bacteria.getCoords());
     }
 
-    public void eatFood(Food food) { //здесь то же самое, что и бактерии - норм все
+    public void eatFood(Food food) {
         killEntity(food);
         food.setCoords(getRandomFreeCellCoords());
         entitiesMap.put(food.getCoords(), food);
@@ -79,7 +80,7 @@ public class Model {
 
     public void eatPoison(Bacteria bacteria) {
         //entitiesMap.remove(bacteria.getCoords());
-        oldEntities.add(bacteria);
+        entitiesToRemove.add(bacteria);
 
         Poison poison = new Poison(bacteria.getCoords());
 
@@ -93,12 +94,12 @@ public class Model {
     }
 
 
-    public Steps generateValidStep(AbstractEntity entity) {
+    public Direction generateValidStep(AbstractEntity entity) {
         //мб здесь делать проверку, что в новых координтах нет стены или другой бактерии?
-        final Steps[] steps = Steps.values();
+        final Direction[] steps = Direction.values();
         final int lenSteps = steps.length;
         Random random = new Random();
-        Steps current;
+        Direction current;
         while (true) {
             int number = random.nextInt(lenSteps);
             current = steps[number];
@@ -131,9 +132,9 @@ public class Model {
     }
 
     public void removeEntities() {
-        entitiesList.removeAll(oldEntities);
+        entitiesList.removeAll(entitiesToRemove);
 
-        oldEntities.clear();
+        entitiesToRemove.clear();
     }
 
     public Map<Point, AbstractEntity> getEntitiesMap() {
@@ -173,6 +174,6 @@ public class Model {
     }
 
     public List<AbstractEntity> getEntitiesList() {
-        return entitiesList;
+        return new ArrayList<>(entitiesList);
     }
 }

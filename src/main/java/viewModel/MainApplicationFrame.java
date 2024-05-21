@@ -1,7 +1,6 @@
 package viewModel;
 
 import log.Logger;
-import utils.GameWindowConfig;
 import view.View;
 
 import javax.swing.*;

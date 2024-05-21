@@ -23,7 +23,7 @@ public class ModelContext {
         this.model = model;
     }
 
-    public Steps generateValidStep(AbstractEntity entity) {
+    public Direction generateValidStep(AbstractEntity entity) {
         return model.generateValidStep(entity);
     }
 
@@ -35,8 +35,9 @@ public class ModelContext {
      * @return возвращает entity, на которую наступила бактерия, либо null, если не наступила
      */
     @SafeVarargs
-    public final AbstractEntity move(AbstractEntity entity, Steps step,
+    public final AbstractEntity move(AbstractEntity entity, Direction step,
                            Class<? extends AbstractEntity>... availableEntitiesToMove) {
+        //добавить перемещение бактерии на новые координаты
         int newX = entity.getCoords().x + step.getX();
         int newY = entity.getCoords().y + step.getY();
         AbstractEntity entityOnCoords = model.getEntityOnCoords(new Point(newX, newY));
@@ -48,9 +49,14 @@ public class ModelContext {
         return null;
     }
 
+    //переместиться, съесть и узнать, что находится в указанном направлении - добавить эти методы
+    //как будто у меня все эти 3 метода есть, возможно стоит пересмотреть архитектуру и организацию этих моментов
+    //заняться этим, если будет время, то есть после того, как напишу мозг бактерии
     public void moveBacteria(Bacteria bacteria, int newX, int newY) {
         model.moveBacteria(bacteria, newX, newY);
     }
+
+    //создать eat(Bacteria, Direction) - общий метод для еды и яда, не понял зачем
 
     public void eatFood(Food food){
         model.eatFood(food);

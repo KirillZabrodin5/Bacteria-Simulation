@@ -1,6 +1,6 @@
 package model;
 
-public enum Steps {
+public enum Direction {
     LEFT(-1,0),
     RIGHT(1,0),
     UP(0,-1),
@@ -12,7 +12,7 @@ public enum Steps {
 
     private final int x;
     private final int y;
-    Steps(int x, int y) {
+    Direction(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -27,7 +27,7 @@ public enum Steps {
 
     @Override
     public String toString() {
-        return "Steps{" +
+        return "Direction{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';

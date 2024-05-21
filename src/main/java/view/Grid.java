@@ -1,6 +1,6 @@
 package view;
 
-import utils.GameWindowConfig;
+import viewModel.GameWindowConfig;
 
 import java.awt.Graphics;
 import java.awt.Color;
@@ -13,7 +13,6 @@ public final class Grid {
 
         int cellSizeInLength = GameWindowConfig.getCellSizeInLength();
         int cellSizeInWidth = GameWindowConfig.getCellSizeInWidth();
-
 
         // Рисуем горизонтальные линии
         for (int i = 0; i <= countOfCellsInWidth; i++) {

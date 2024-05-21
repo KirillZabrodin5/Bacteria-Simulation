@@ -1,6 +1,6 @@
 package view.renderers;
 
-import utils.GameWindowConfig;
+import viewModel.GameWindowConfig;
 import model.entity.Bacteria;
 
 import java.awt.*;

@@ -1,7 +1,7 @@
 package view.renderers;
 
 import model.entity.Wall;
-import utils.GameWindowConfig;
+import viewModel.GameWindowConfig;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

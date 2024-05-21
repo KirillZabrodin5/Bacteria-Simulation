@@ -17,14 +17,20 @@ public class ViewModel {
     }
 
     public void update() {
-        Timer m_timer = new Timer("events generator", true);
-        m_timer.schedule(new TimerTask() {
+        Timer timer = new Timer("events generator", true);
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 model.updateModel();
-                view.updateView();
             }
         }, 1000, 500);
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                view.updateView();
+            }
+        }, 0, 10);
     }
 
     public Model getModel() {
