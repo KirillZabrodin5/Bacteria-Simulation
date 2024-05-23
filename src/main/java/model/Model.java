@@ -10,9 +10,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Model {
     private final List<AbstractEntity> entitiesList = new ArrayList<>();
     private final List<AbstractEntity> newEntities = new CopyOnWriteArrayList<>();
-    private final List<AbstractEntity> entitiesToRemove = new CopyOnWriteArrayList<>(); //класс entitiesRepository - 3 поля
+    private final List<AbstractEntity> entitiesToRemove = new CopyOnWriteArrayList<>(); //создать класс entitiesRepository - 3 поля
     private final List<Point> freeCells = new ArrayList<>();
-    private final Map<Point, AbstractEntity> entitiesMap = new HashMap<>(); //класс для поля
+    private final Map<Point, AbstractEntity> entitiesMap = new HashMap<>(); //создать класс для поля (из freeCells и entitiesMap)
     private final ModelContext modelContext = new ModelContext(this);
 
     public Model() {
@@ -60,6 +60,7 @@ public class Model {
     public void moveBacteria(Bacteria bacteria, int newX, int newY) {
         killEntity(bacteria);
         bacteria.setCoords(new Point(newX, newY));
+        newEntities.add(bacteria);
         entitiesMap.put(bacteria.getCoords(), bacteria);
         freeCells.remove(bacteria.getCoords());
     }
@@ -67,16 +68,17 @@ public class Model {
     public void eatFood(Food food) {
         killEntity(food);
         food.setCoords(getRandomFreeCellCoords());
+        newEntities.add(food);
         entitiesMap.put(food.getCoords(), food);
         freeCells.remove(food.getCoords());
     }
 
-//    public void eatPoison(Poison poison) {
-//        Food food = new Food(poison.getCoords());
-//        entitiesMap.put(poison.getCoords(), food);
-//        newEntities.add(food);
-//        oldEntities.add(poison);
-//    }
+    public void neutralizePoison(Poison poison) {
+        Food food = new Food(poison.getCoords());
+        entitiesMap.put(poison.getCoords(), food);
+        newEntities.add(food);
+        entitiesToRemove.add(poison);
+    }
 
     public void eatPoison(Bacteria bacteria) {
         //entitiesMap.remove(bacteria.getCoords());
@@ -91,6 +93,7 @@ public class Model {
     public void killEntity(AbstractEntity entity) {
         entitiesMap.remove(entity.getCoords());
         freeCells.add(entity.getCoords());
+        entitiesToRemove.add(entity);
     }
 
 

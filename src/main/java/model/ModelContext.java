@@ -3,6 +3,7 @@ package model;
 import model.entity.AbstractEntity;
 import model.entity.Bacteria;
 import model.entity.Food;
+import model.entity.Poison;
 
 import java.awt.*;
 
@@ -35,8 +36,8 @@ public class ModelContext {
      * @return возвращает entity, на которую наступила бактерия, либо null, если не наступила
      */
     @SafeVarargs
-    public final AbstractEntity move(AbstractEntity entity, Direction step,
-                           Class<? extends AbstractEntity>... availableEntitiesToMove) {
+    public final AbstractEntity checkCellForAnEntity(AbstractEntity entity, Direction step,
+                                                     Class<? extends AbstractEntity>... availableEntitiesToMove) {
         //добавить перемещение бактерии на новые координаты
         int newX = entity.getCoords().x + step.getX();
         int newY = entity.getCoords().y + step.getY();
@@ -65,7 +66,9 @@ public class ModelContext {
     public void eatPoison(Bacteria bacteria){
         model.eatPoison(bacteria);
     }
-
+    public void neutralizePoison(Poison poison) {
+        model.neutralizePoison(poison);
+    }
     public void killCell(AbstractEntity entity) {
         model.killEntity(entity);
     }

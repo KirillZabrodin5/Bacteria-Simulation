@@ -24,7 +24,6 @@ public class ViewModel {
                 model.updateModel();
             }
         }, 1000, 500);
-
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
