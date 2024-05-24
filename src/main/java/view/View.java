@@ -28,12 +28,16 @@ public class View extends JComponent {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        Grid grid = new Grid();
+
+        //если сюда отрисовку grid перенести, то неправльно отрисовывается, это значит, костыль какой-то, надо переделать
+        //так не должно быть
         for (AbstractEntity entity : entitiesProvider.getEntitiesList()) {
             EntityRenderer<AbstractEntity> renderer = (EntityRenderer<AbstractEntity>) entityRendererMap
                     .get(entity.getClass());
             renderer.render(entity, g);
         }
-        Grid.drawGrid(g);
+        grid.drawGrid(g);
     }
 
     public void updateView() {

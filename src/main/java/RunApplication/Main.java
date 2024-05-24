@@ -1,11 +1,11 @@
 package RunApplication;
 
-import model.Model;
+import model.World;
 import view.View;
 import viewModel.EntitiesProvider;
 import viewModel.EntitiesProviderFromModelToView;
 import viewModel.MainApplicationFrame;
-import viewModel.ViewModel;
+import viewModel.ViewWorld;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,10 +18,10 @@ public class Main {
             e.printStackTrace();
         }
         SwingUtilities.invokeLater(() -> {
-            Model model = new Model();
-            EntitiesProvider entitiesProvider = new EntitiesProviderFromModelToView(model);
+            World world = new World();
+            EntitiesProvider entitiesProvider = new EntitiesProviderFromModelToView(world);
             View view = new View(entitiesProvider);
-            ViewModel viewModel = new ViewModel(model, view);
+            ViewWorld viewModel = new ViewWorld(world, view);
 
             MainApplicationFrame frame = new MainApplicationFrame(viewModel.getView());
             frame.pack();

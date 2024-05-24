@@ -1,6 +1,6 @@
 package model.entity;
 
-import model.ModelContext;
+import model.WorldContext;
 
 import java.awt.*;
 
@@ -9,5 +9,5 @@ public class Wall extends AbstractEntity {
         super(coords);
     }
     @Override
-    public void update(ModelContext modelContext) {}
+    public void update(WorldContext modelContext) {}
 }

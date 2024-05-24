@@ -38,7 +38,7 @@ public class Menu {
             lookAndFeelMenu.add(crossplatformLookAndFeel);
         }
 
-        { //эту кнопку сам добавил для удобства
+        {
             JMenuItem defaultLookAndFeel = new JMenuItem("Стартовая схема", KeyEvent.VK_S);
             defaultLookAndFeel.addActionListener((event) -> {
                 setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");

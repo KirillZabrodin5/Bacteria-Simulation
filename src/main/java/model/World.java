@@ -7,15 +7,15 @@ import java.awt.Point;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Model {
+public class World {
     private final List<AbstractEntity> entitiesList = new ArrayList<>();
     private final List<AbstractEntity> newEntities = new CopyOnWriteArrayList<>();
     private final List<AbstractEntity> entitiesToRemove = new CopyOnWriteArrayList<>(); //создать класс entitiesRepository - 3 поля
     private final List<Point> freeCells = new ArrayList<>();
     private final Map<Point, AbstractEntity> entitiesMap = new HashMap<>(); //создать класс для поля (из freeCells и entitiesMap)
-    private final ModelContext modelContext = new ModelContext(this);
+    private final WorldContext worldContext = new WorldContext(this);
 
-    public Model() {
+    public World() {
         fillFreeCells();
 
         createEntities();
@@ -23,9 +23,9 @@ public class Model {
         fillEntitiesMap();
     }
 
-    public void updateModel() {
+    public void updateWorld() {
         for (AbstractEntity entity : entitiesList) {
-            entity.update(modelContext);
+            entity.update(worldContext);
         }
         removeEntities();
         addEntities();
@@ -97,35 +97,28 @@ public class Model {
     }
 
 
-    public Direction generateValidStep(AbstractEntity entity) {
-        //мб здесь делать проверку, что в новых координтах нет стены или другой бактерии?
-        final Direction[] steps = Direction.values();
+    public Step generateValidStep(AbstractEntity entity) {
+        final Step[] steps = Step.values();
         final int lenSteps = steps.length;
         Random random = new Random();
-        Direction current;
+        Step step;
         while (true) {
             int number = random.nextInt(lenSteps);
-            current = steps[number];
-            if (isValidStepByX(entity.getCoords().x + current.getX()) &&
-                    isValidStepByY(entity.getCoords().y + current.getY())) {
+            step = steps[number];
+            if (isValidStepByX(entity.getCoords().x + step.getX()) &&
+                    isValidStepByY(entity.getCoords().y + step.getY())) {
                 break;
             }
         }
-        return current;
+        return step;
     }
 
-    private boolean isValidStepByX(int coordinate) {
-        if (coordinate < 0 || coordinate >= GameWindowConfig.getCountOfCellsInLength()) {
-            return false;
-        }
-        return true;
+    private boolean isValidStepByX(int x) {
+        return x >= 0 && x < GameWindowConfig.getCountOfCellsInLength();
     }
 
-    private boolean isValidStepByY(int coordinate) {
-        if (coordinate < 0 || coordinate >= GameWindowConfig.getCountOfCellsInWidth()) {
-            return false;
-        }
-        return true;
+    private boolean isValidStepByY(int y) {
+        return y >= 0 && y < GameWindowConfig.getCountOfCellsInWidth();
     }
 
     public void addEntities() {

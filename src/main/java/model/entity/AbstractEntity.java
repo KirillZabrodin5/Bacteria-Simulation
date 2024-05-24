@@ -1,6 +1,6 @@
 package model.entity;
 
-import model.ModelContext;
+import model.WorldContext;
 
 import java.awt.Point;
 
@@ -14,9 +14,10 @@ public abstract class AbstractEntity {
     public Point getCoords() {
         return coords;
     }
+
     public void setCoords(Point coords) {
         this.coords = coords;
     }
 
-    public abstract void update(ModelContext modelContext);
+    public abstract void update(WorldContext modelContext);
 }

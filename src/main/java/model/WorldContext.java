@@ -17,15 +17,15 @@ import java.awt.*;
  * могут быть реализованы для управления сущностями в модели.
  */
 
-public class ModelContext {
-    private final Model model;
+public class WorldContext {
+    private final World world;
 
-    public ModelContext(Model model) {
-        this.model = model;
+    public WorldContext(World model) {
+        this.world = model;
     }
 
-    public Direction generateValidStep(AbstractEntity entity) {
-        return model.generateValidStep(entity);
+    public Step generateValidStep(AbstractEntity entity) {
+        return world.generateValidStep(entity);
     }
 
     /**
@@ -36,12 +36,12 @@ public class ModelContext {
      * @return возвращает entity, на которую наступила бактерия, либо null, если не наступила
      */
     @SafeVarargs
-    public final AbstractEntity checkCellForAnEntity(AbstractEntity entity, Direction step,
+    public final AbstractEntity checkCellForAnEntity(AbstractEntity entity, Step step,
                                                      Class<? extends AbstractEntity>... availableEntitiesToMove) {
         //добавить перемещение бактерии на новые координаты
         int newX = entity.getCoords().x + step.getX();
         int newY = entity.getCoords().y + step.getY();
-        AbstractEntity entityOnCoords = model.getEntityOnCoords(new Point(newX, newY));
+        AbstractEntity entityOnCoords = world.getEntityOnCoords(new Point(newX, newY));
         for (Class<? extends AbstractEntity> aClass : availableEntitiesToMove) {
            if (aClass.isInstance(entityOnCoords)) {
                return entityOnCoords;
@@ -54,22 +54,22 @@ public class ModelContext {
     //как будто у меня все эти 3 метода есть, возможно стоит пересмотреть архитектуру и организацию этих моментов
     //заняться этим, если будет время, то есть после того, как напишу мозг бактерии
     public void moveBacteria(Bacteria bacteria, int newX, int newY) {
-        model.moveBacteria(bacteria, newX, newY);
+        world.moveBacteria(bacteria, newX, newY);
     }
 
     //создать eat(Bacteria, Direction) - общий метод для еды и яда, не понял зачем
 
     public void eatFood(Food food){
-        model.eatFood(food);
+        world.eatFood(food);
     }
 
     public void eatPoison(Bacteria bacteria){
-        model.eatPoison(bacteria);
+        world.eatPoison(bacteria);
     }
     public void neutralizePoison(Poison poison) {
-        model.neutralizePoison(poison);
+        world.neutralizePoison(poison);
     }
     public void killCell(AbstractEntity entity) {
-        model.killEntity(entity);
+        world.killEntity(entity);
     }
 }

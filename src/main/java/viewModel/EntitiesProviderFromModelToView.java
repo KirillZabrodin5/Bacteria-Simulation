@@ -1,18 +1,18 @@
 package viewModel;
 
-import model.Model;
+import model.World;
 import model.entity.AbstractEntity;
 
 import java.util.List;
 
 public class EntitiesProviderFromModelToView implements EntitiesProvider {
-    private final Model model;
-    public EntitiesProviderFromModelToView(Model model) {
-        this.model = model;
+    private final World world;
+    public EntitiesProviderFromModelToView(World world) {
+        this.world = world;
     }
 
     @Override
     public List<AbstractEntity> getEntitiesList() {
-        return model.getEntitiesList();
+        return world.getEntitiesList();
     }
 }

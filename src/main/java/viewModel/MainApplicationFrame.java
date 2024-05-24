@@ -11,7 +11,7 @@ public class MainApplicationFrame extends JFrame
 
     public MainApplicationFrame(View view) {
         setContentPane(desktopPane);
-        //addWindow(createLogWindow());
+        //addWindow(createLogWindow()); раскомментировать, если понадобится окно логирования
         addWindow(createGameWindow(view));
 
         setJMenuBar(generateMenuBar());

@@ -1,17 +1,17 @@
 package viewModel;
 
-import model.Model;
+import model.World;
 import view.View;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ViewModel {
-    private final Model model;
+public class ViewWorld {
+    private final World world;
     private final View view;
 
-    public ViewModel(Model model, View view) {
-        this.model = model;
+    public ViewWorld(World world, View view) {
+        this.world = world;
         this.view = view;
         update();
     }
@@ -21,7 +21,7 @@ public class ViewModel {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                model.updateModel();
+                world.updateWorld();
             }
         }, 1000, 500);
         timer.schedule(new TimerTask() {
@@ -32,8 +32,8 @@ public class ViewModel {
         }, 0, 10);
     }
 
-    public Model getModel() {
-        return model;
+    public World getWorld() {
+        return world;
     }
 
     public View getView() {

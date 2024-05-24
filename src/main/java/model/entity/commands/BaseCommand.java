@@ -1,8 +1,8 @@
 package model.entity.commands;
 
-import model.ModelContext;
+import model.WorldContext;
 import model.entity.Bacteria;
 
 public interface BaseCommand {
-    void execute(Bacteria bacteria, ModelContext modelContext);
+    void execute(Bacteria bacteria, int commandCode, WorldContext worldContext);
 }
