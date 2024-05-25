@@ -41,13 +41,25 @@ public class RendererBacteria implements EntityRenderer<Bacteria> {
 
     private static void drawEyes(Graphics2D g, int x, int y) {
         g.setColor(Color.WHITE);
-        g.fillOval(x + 15, y + 5, 5, 5);
+        g.fillOval(x + 10, y, 10, 10);
         g.setColor(Color.BLACK);
-        g.drawOval(x + 15, y + 5, 5, 5);
+        g.drawOval(x + 10, y , 10, 10);
+
+        //зрачки
+        g.setColor(Color.BLACK);
+        g.fillOval(x + 12, y, 7, 7);
+        g.setColor(Color.BLACK);
+        g.drawOval(x + 12, y , 7, 7);
 
         g.setColor(Color.WHITE);
-        g.fillOval(x + 30, y + 5, 5, 5);
+        g.fillOval(x + 30, y, 10, 10);
         g.setColor(Color.BLACK);
-        g.drawOval(x + 30, y + 5, 5, 5);
+        g.drawOval(x + 30, y, 10, 10);
+
+        //зрачки
+        g.setColor(Color.BLACK);
+        g.fillOval(x + 32, y, 7, 7);
+        g.setColor(Color.BLACK);
+        g.drawOval(x + 32, y , 7, 7);
     }
 }

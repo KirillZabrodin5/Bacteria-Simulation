@@ -97,20 +97,9 @@ public class World {
     }
 
 
-    public Step generateValidStep(AbstractEntity entity) {
-        final Step[] steps = Step.values();
-        final int lenSteps = steps.length;
-        Random random = new Random();
-        Step step;
-        while (true) {
-            int number = random.nextInt(lenSteps);
-            step = steps[number];
-            if (isValidStepByX(entity.getCoords().x + step.getX()) &&
-                    isValidStepByY(entity.getCoords().y + step.getY())) {
-                break;
-            }
-        }
-        return step;
+    public boolean isValidStep(AbstractEntity entity, Direction step) {
+        return isValidStepByX(entity.getCoords().x + step.getX()) &&
+                isValidStepByY(entity.getCoords().y + step.getY());
     }
 
     private boolean isValidStepByX(int x) {
@@ -141,6 +130,33 @@ public class World {
         for (AbstractEntity entity : entitiesList) {
             entitiesMap.put(entity.getCoords(), entity);
         }
+    }
+
+    public void createChild(Bacteria bacteria) {
+        //координаты надо не рандомные (надо рядом с исходной бактерией потомка создавать)
+        Direction[] steps = Direction.values();
+        int xChild = 0;
+        int yChild = 0;
+        boolean flag = false;
+        for (Direction step : steps) {
+            int x = bacteria.getCoords().x + step.getX();
+            int y = bacteria.getCoords().y + step.getY();
+            if (freeCells.contains(new Point(x,y))) {
+                xChild = x;
+                yChild = y;
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            killEntity(bacteria);
+            return;
+        }
+        Bacteria childBacteria = new Bacteria(new Point(xChild, yChild));
+        childBacteria.setHealthPoints(bacteria.getHealthPoints() / 2);
+        bacteria.setHealthPoints(bacteria.getHealthPoints() / 2);
+        newEntities.add(childBacteria);
+        entitiesMap.put(childBacteria.getCoords(), childBacteria);
     }
 
     public Point getRandomFreeCellCoords() {

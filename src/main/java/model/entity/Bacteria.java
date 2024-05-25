@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.Direction;
 import model.WorldContext;
 import model.entity.commands.*;
 
@@ -11,7 +12,9 @@ public class Bacteria extends AbstractEntity {
     private final int[] brain = new int[brainSize];
     private final int maxCountCommand = 10;
     private int indexCommand = 0; //тут должны быть чиселки от 0 до 63
+    private int commandCode = brain[indexCommand];
     private int healthPoints = 15;
+    private Direction direction; //по сути оно нужно только для того, чтобы глаза рисовать в нужном направлении... или нет
     public Bacteria(Point coords) {
         super(coords);
         fillBrain();
@@ -28,8 +31,8 @@ public class Bacteria extends AbstractEntity {
             return;
         }
 
-        while (countCommand != maxCountCommand) {
-            int commandCode = brain[indexCommand];
+        while (countCommand < maxCountCommand) {
+            commandCode = brain[indexCommand];
             if (commandCode > 0) {
                 if (commandCode < 8) {
                     new MoveCommand().execute(this, commandCode, modelContext);
@@ -48,6 +51,10 @@ public class Bacteria extends AbstractEntity {
             countCommand++;
             indexCommand = (indexCommand + 1) % brainSize;
         }
+
+        if (healthPoints > 50) {
+            modelContext.createChild(this);
+        }
     }
 
     public void fillBrain() {
@@ -63,5 +70,11 @@ public class Bacteria extends AbstractEntity {
 
     public void setHealthPoints(int healthPoints) {
         this.healthPoints = healthPoints;
+    }
+    public void setDirection(Direction direction) { //todo подумать, как реализовать этот метод
+        this.direction = direction;
+    }
+    public void setCommandCode(int commandCode) {
+        this.commandCode = commandCode % 63;
     }
 }

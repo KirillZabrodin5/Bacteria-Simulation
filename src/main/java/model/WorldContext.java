@@ -24,28 +24,29 @@ public class WorldContext {
         this.world = model;
     }
 
-    public Step generateValidStep(AbstractEntity entity) {
-        return world.generateValidStep(entity);
+    public boolean isValidStep(AbstractEntity entity, Direction step) {
+        return world.isValidStep(entity, step);
     }
 
     /**
      * Этот метод нужен для реализации движения всех entities
+     *
      * @param entity
      * @param step
      * @param availableEntitiesToMove
      * @return возвращает entity, на которую наступила бактерия, либо null, если не наступила
      */
     @SafeVarargs
-    public final AbstractEntity checkCellForAnEntity(AbstractEntity entity, Step step,
+    public final AbstractEntity checkCellForAnEntity(AbstractEntity entity, Direction step,
                                                      Class<? extends AbstractEntity>... availableEntitiesToMove) {
         //добавить перемещение бактерии на новые координаты
         int newX = entity.getCoords().x + step.getX();
         int newY = entity.getCoords().y + step.getY();
         AbstractEntity entityOnCoords = world.getEntityOnCoords(new Point(newX, newY));
         for (Class<? extends AbstractEntity> aClass : availableEntitiesToMove) {
-           if (aClass.isInstance(entityOnCoords)) {
-               return entityOnCoords;
-           }
+            if (aClass.isInstance(entityOnCoords)) {
+                return entityOnCoords;
+            }
         }
         return null;
     }
@@ -59,17 +60,23 @@ public class WorldContext {
 
     //создать eat(Bacteria, Direction) - общий метод для еды и яда, не понял зачем
 
-    public void eatFood(Food food){
+    public void eatFood(Food food) {
         world.eatFood(food);
     }
 
-    public void eatPoison(Bacteria bacteria){
+    public void eatPoison(Bacteria bacteria) {
         world.eatPoison(bacteria);
     }
+
     public void neutralizePoison(Poison poison) {
         world.neutralizePoison(poison);
     }
+
     public void killCell(AbstractEntity entity) {
         world.killEntity(entity);
+    }
+
+    public void createChild(Bacteria bacteria) {
+        world.createChild(bacteria);
     }
 }

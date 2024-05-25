@@ -1,23 +1,31 @@
 package model.entity.commands;
 
-import model.Step;
+import model.Direction;
 import model.WorldContext;
 import model.entity.*;
 
 public class LookCommand implements BaseCommand {
     @Override
     public void execute(Bacteria bacteria, int commandCode, WorldContext worldContext) {
-        Step step = worldContext.generateValidStep(bacteria);
+        Direction step = (Direction.values())[commandCode % 8];
+        if (!worldContext.isValidStep(bacteria, step)) {
+            bacteria.setCommandCode(commandCode + EntityToValue.WALL.getValue());
+            return;
+        }
+        bacteria.setDirection(step);
         AbstractEntity entity = worldContext.checkCellForAnEntity(bacteria, step, Bacteria.class,
                 Food.class, Poison.class, Wall.class);
+
         if (entity instanceof Bacteria) {
-            //todo
+            bacteria.setCommandCode(commandCode + EntityToValue.BACTERIA.getValue());
         } else if (entity instanceof Food) {
-            //todo
+            bacteria.setCommandCode(commandCode + EntityToValue.FOOD.getValue());
         } else if (entity instanceof Poison) {
-            //todo
+            bacteria.setCommandCode(commandCode + EntityToValue.POISON.getValue());
         } else if (entity instanceof Wall) {
-            //todo
+            bacteria.setCommandCode(commandCode + EntityToValue.WALL.getValue());
+        } else {
+            bacteria.setCommandCode(commandCode + EntityToValue.EMPTY.getValue());
         }
     }
 }
