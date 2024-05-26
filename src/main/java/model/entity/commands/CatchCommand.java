@@ -8,35 +8,31 @@ public class CatchCommand implements BaseCommand {
     @Override
     public void execute(Bacteria bacteria, int commandCode, WorldContext worldContext) {
         Direction step = (Direction.values())[commandCode % 8];
-        int newX = bacteria.getCoords().x + step.getX();
-        int newY = bacteria.getCoords().y + step.getY();
         if (!worldContext.isValidStep(bacteria, step)) {
-            bacteria.setCommandCode(commandCode + EntityToValue.WALL.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
             return;
         }
         bacteria.setDirection(step);
-        int healthPoints = bacteria.getHealthPoints();
-        if (healthPoints == 0) {
-            worldContext.killCell(bacteria);
-            return;
-        }
 
+        int healthPoints = bacteria.getHealthPoints();
         bacteria.setHealthPoints(healthPoints - 1);
-        AbstractEntity encounteredEntity = worldContext.checkCellForAnEntity(bacteria, step, Bacteria.class, Food.class, Poison.class, Wall.class);
+
+        AbstractEntity encounteredEntity = worldContext.checkCellForAnEntity(bacteria, step,
+                Bacteria.class, Food.class, Poison.class, Wall.class);
+
         if (encounteredEntity instanceof Food food) {
             worldContext.eatFood(food);
-            worldContext.moveBacteria(bacteria, newX, newY);
             bacteria.setHealthPoints(healthPoints + 10);
-            bacteria.setCommandCode(commandCode + EntityToValue.FOOD.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.FOOD);
         } else if (encounteredEntity instanceof Poison poison) {
             worldContext.neutralizePoison(poison);
-            bacteria.setCommandCode(commandCode + EntityToValue.POISON.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.POISON);
         } else if (encounteredEntity instanceof Bacteria) {
-            bacteria.setCommandCode(commandCode + EntityToValue.BACTERIA.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.BACTERIA);
         } else if (encounteredEntity instanceof Wall) {
-            bacteria.setCommandCode(commandCode + EntityToValue.WALL.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
         } else {
-            bacteria.setCommandCode(commandCode + EntityToValue.EMPTY.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.EMPTY);
         }
     }
 }

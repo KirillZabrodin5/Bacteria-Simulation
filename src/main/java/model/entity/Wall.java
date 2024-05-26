@@ -8,6 +8,8 @@ public class Wall extends AbstractEntity {
     public Wall(Point coords) {
         super(coords);
     }
+
     @Override
-    public void update(WorldContext modelContext) {}
+    public void update(WorldContext worldContext) {
+    }
 }

@@ -11,10 +11,11 @@ public class Bacteria extends AbstractEntity {
     private final int brainSize = 64;
     private final int[] brain = new int[brainSize];
     private final int maxCountCommand = 10;
-    private int indexCommand = 0; //тут должны быть чиселки от 0 до 63
-    private int commandCode = brain[indexCommand];
+    private int indexCommand = 0;
     private int healthPoints = 15;
     private Direction direction; //по сути оно нужно только для того, чтобы глаза рисовать в нужном направлении... или нет
+    private HandlerCommand handlerCommand = new HandlerCommand();
+
     public Bacteria(Point coords) {
         super(coords);
         fillBrain();
@@ -22,34 +23,33 @@ public class Bacteria extends AbstractEntity {
 
     @Override
     public void update(WorldContext modelContext) {
-        //тут надо добавлять еще то, что какие-то команды являются завершающими, какие-то нет и стоит до 10 раз выполнять,
-        //чтобы сделать шаг
-        int countCommand = 0;
+        int countExecutedCommand = 0;
 
         if (healthPoints == 0) {
             modelContext.killCell(this);
             return;
         }
 
-        while (countCommand < maxCountCommand) {
-            commandCode = brain[indexCommand];
-            if (commandCode > 0) {
-                if (commandCode < 8) {
-                    new MoveCommand().execute(this, commandCode, modelContext);
-                    break;
-                } else if (commandCode < 16) {
-                    new CatchCommand().execute(this, commandCode, modelContext);
-                    break;
-                } else if (commandCode < 24) {
-                    new LookCommand().execute(this, commandCode, modelContext);
-                } else if (commandCode < 32) {
-                    new ChangeDirectionCommand().execute(this, commandCode, modelContext);
-                } else if (commandCode < 64) {
-                    new JumpCommand().execute(this, commandCode, modelContext);
-                }
-            }
-            countCommand++;
-            indexCommand = (indexCommand + 1) % brainSize;
+        while (countExecutedCommand < maxCountCommand) {
+            int commandCode = brain[indexCommand];
+
+            handlerCommand.execute(this, commandCode, modelContext);
+
+//            if (commandCode < 8) {
+//                new MoveCommand().execute(this, commandCode, modelContext);
+//                break;
+//            } else if (commandCode < 16) {
+//                new CatchCommand().execute(this, commandCode, modelContext);
+//                break;
+//            } else if (commandCode < 24) {
+//                new LookCommand().execute(this, commandCode, modelContext);
+//            } else if (commandCode < 32) {
+//                new ChangeDirectionCommand().execute(this, commandCode, modelContext);
+//            } else if (commandCode < 64) {
+//                new JumpCommand().execute(this, commandCode, modelContext);
+//            }
+
+            countExecutedCommand++;
         }
 
         if (healthPoints > 50) {
@@ -71,10 +71,19 @@ public class Bacteria extends AbstractEntity {
     public void setHealthPoints(int healthPoints) {
         this.healthPoints = healthPoints;
     }
-    public void setDirection(Direction direction) { //todo подумать, как реализовать этот метод
+
+    public Direction getDirection() {
+        return direction;
+    }
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
-    public void setCommandCode(int commandCode) {
-        this.commandCode = commandCode % 63;
+
+    public int getIndexCommand() {
+        return indexCommand;
+    }
+
+    public void setIndexCommand(int indexCommand) {
+        this.indexCommand = indexCommand % brainSize;
     }
 }

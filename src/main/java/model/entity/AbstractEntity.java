@@ -19,5 +19,5 @@ public abstract class AbstractEntity {
         this.coords = coords;
     }
 
-    public abstract void update(WorldContext modelContext);
+    public abstract void update(WorldContext worldContext);
 }

@@ -10,5 +10,6 @@ public class Poison extends AbstractEntity {
     }
 
     @Override
-    public void update(WorldContext modelContext) {}
+    public void update(WorldContext worldContext) {
+    }
 }

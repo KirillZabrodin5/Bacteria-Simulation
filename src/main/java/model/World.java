@@ -81,7 +81,6 @@ public class World {
     }
 
     public void eatPoison(Bacteria bacteria) {
-        //entitiesMap.remove(bacteria.getCoords());
         entitiesToRemove.add(bacteria);
 
         Poison poison = new Poison(bacteria.getCoords());
@@ -141,7 +140,7 @@ public class World {
         for (Direction step : steps) {
             int x = bacteria.getCoords().x + step.getX();
             int y = bacteria.getCoords().y + step.getY();
-            if (freeCells.contains(new Point(x,y))) {
+            if (freeCells.contains(new Point(x, y))) {
                 xChild = x;
                 yChild = y;
                 flag = true;

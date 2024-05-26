@@ -11,31 +11,32 @@ public class MoveCommand implements BaseCommand {
         int newX = bacteria.getCoords().x + step.getX();
         int newY = bacteria.getCoords().y + step.getY();
         if (!worldContext.isValidStep(bacteria, step)) {
-            bacteria.setCommandCode(commandCode + EntityToValue.WALL.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
             return;
         }
+        bacteria.setDirection(step);
+
         int healthPoints = bacteria.getHealthPoints();
         bacteria.setHealthPoints(healthPoints - 1);
-        bacteria.setDirection(step);
+
         AbstractEntity encounteredEntity = worldContext.checkCellForAnEntity(bacteria, step,
                 Bacteria.class, Food.class, Poison.class, Wall.class);
-        if (encounteredEntity == null) {
-            worldContext.moveBacteria(bacteria,  newX, newY);
-            bacteria.setCommandCode(commandCode + EntityToValue.EMPTY.getValue());
+
+        if (encounteredEntity instanceof Food food) {
+            worldContext.eatFood(food);
+            worldContext.moveBacteria(bacteria, newX, newY);
+            bacteria.setHealthPoints(healthPoints + 10);
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.FOOD);
+        } else if (encounteredEntity instanceof Poison) {
+            worldContext.eatPoison(bacteria);
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.POISON);
+        } else if (encounteredEntity instanceof Bacteria) {
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.BACTERIA);
+        } else if (encounteredEntity instanceof Wall) {
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
         } else {
-            if (encounteredEntity instanceof Food food) {
-                bacteria.setCommandCode(commandCode + EntityToValue.FOOD.getValue());
-                worldContext.eatFood(food);
-                worldContext.moveBacteria(bacteria, newX, newY);
-                bacteria.setHealthPoints(healthPoints + 10);
-            } else if (encounteredEntity instanceof Poison) {
-                bacteria.setCommandCode(commandCode + EntityToValue.POISON.getValue());
-                worldContext.eatPoison(bacteria);
-            } else if (encounteredEntity instanceof Bacteria) {
-                bacteria.setCommandCode(commandCode + EntityToValue.BACTERIA.getValue());
-            } else if (encounteredEntity instanceof Wall) {
-                bacteria.setCommandCode(commandCode + EntityToValue.WALL.getValue());
-            }
+            worldContext.moveBacteria(bacteria, newX, newY);
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.EMPTY);
         }
     }
 }

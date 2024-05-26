@@ -9,23 +9,24 @@ public class LookCommand implements BaseCommand {
     public void execute(Bacteria bacteria, int commandCode, WorldContext worldContext) {
         Direction step = (Direction.values())[commandCode % 8];
         if (!worldContext.isValidStep(bacteria, step)) {
-            bacteria.setCommandCode(commandCode + EntityToValue.WALL.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
             return;
         }
         bacteria.setDirection(step);
+
         AbstractEntity entity = worldContext.checkCellForAnEntity(bacteria, step, Bacteria.class,
                 Food.class, Poison.class, Wall.class);
 
         if (entity instanceof Bacteria) {
-            bacteria.setCommandCode(commandCode + EntityToValue.BACTERIA.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.BACTERIA);
         } else if (entity instanceof Food) {
-            bacteria.setCommandCode(commandCode + EntityToValue.FOOD.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.FOOD);
         } else if (entity instanceof Poison) {
-            bacteria.setCommandCode(commandCode + EntityToValue.POISON.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.POISON);
         } else if (entity instanceof Wall) {
-            bacteria.setCommandCode(commandCode + EntityToValue.WALL.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
         } else {
-            bacteria.setCommandCode(commandCode + EntityToValue.EMPTY.getValue());
+            bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.EMPTY);
         }
     }
 }
