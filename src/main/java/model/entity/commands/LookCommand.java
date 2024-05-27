@@ -7,14 +7,14 @@ import model.entity.*;
 public class LookCommand implements BaseCommand {
     @Override
     public void execute(Bacteria bacteria, int commandCode, WorldContext worldContext) {
-        Direction step = (Direction.values())[commandCode % 8];
+        Direction step = bacteria.getDirection();
         if (!worldContext.isValidStep(bacteria, step)) {
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
             return;
         }
-        bacteria.setDirection(step);
 
-        AbstractEntity entity = worldContext.checkCellForAnEntity(bacteria, step, Bacteria.class,
+
+        AbstractEntity entity = worldContext.getEntityOnCoords(bacteria, step, Bacteria.class,
                 Food.class, Poison.class, Wall.class);
 
         if (entity instanceof Bacteria) {
@@ -28,5 +28,10 @@ public class LookCommand implements BaseCommand {
         } else {
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.EMPTY);
         }
+    }
+
+    @Override
+    public boolean isFinalCommand() {
+        return false;
     }
 }

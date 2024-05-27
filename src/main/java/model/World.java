@@ -132,22 +132,21 @@ public class World {
     }
 
     public void createChild(Bacteria bacteria) {
-        //координаты надо не рандомные (надо рядом с исходной бактерией потомка создавать)
         Direction[] steps = Direction.values();
         int xChild = 0;
         int yChild = 0;
-        boolean flag = false;
+        boolean isCreated = false;
         for (Direction step : steps) {
             int x = bacteria.getCoords().x + step.getX();
             int y = bacteria.getCoords().y + step.getY();
             if (freeCells.contains(new Point(x, y))) {
                 xChild = x;
                 yChild = y;
-                flag = true;
+                isCreated = true;
                 break;
             }
         }
-        if (!flag) {
+        if (!isCreated) {
             killEntity(bacteria);
             return;
         }
@@ -171,9 +170,6 @@ public class World {
         return entitiesMap.get(p);
     }
 
-    /**
-     * Метод для заполнения списка, элементами которого являются координаты свободных клеток
-     */
     private void fillFreeCells() {
         int countCellsInLength = GameWindowConfig.getCountOfCellsInLength();
         int countCellsInWidth = GameWindowConfig.getCountOfCellsInWidth();

@@ -10,11 +10,11 @@ import java.util.Random;
 public class Bacteria extends AbstractEntity {
     private final int brainSize = 64;
     private final int[] brain = new int[brainSize];
-    private final int maxCountCommand = 10;
+    private final int maxCountCommand = 15;
     private int indexCommand = 0;
-    private int healthPoints = 15;
-    private Direction direction; //по сути оно нужно только для того, чтобы глаза рисовать в нужном направлении... или нет
-    private HandlerCommand handlerCommand = new HandlerCommand();
+    //private HandlerCommand handlerCommand = new HandlerCommand();
+    private int healthPoints = 50;
+    private Direction direction = Direction.UP; //по сути оно нужно только для того, чтобы глаза рисовать в нужном направлении... или нет
 
     public Bacteria(Point coords) {
         super(coords);
@@ -24,43 +24,51 @@ public class Bacteria extends AbstractEntity {
     @Override
     public void update(WorldContext modelContext) {
         int countExecutedCommand = 0;
+        boolean flag = false;
 
-        if (healthPoints == 0) {
-            modelContext.killCell(this);
-            return;
-        }
-
-        while (countExecutedCommand < maxCountCommand) {
+        while (countExecutedCommand < maxCountCommand && !flag) {
             int commandCode = brain[indexCommand];
+            BaseCommand command = getCommand(commandCode);
+            setDirection((Direction.values())[commandCode % 8]);
 
-            handlerCommand.execute(this, commandCode, modelContext);
 
-//            if (commandCode < 8) {
-//                new MoveCommand().execute(this, commandCode, modelContext);
-//                break;
-//            } else if (commandCode < 16) {
-//                new CatchCommand().execute(this, commandCode, modelContext);
-//                break;
-//            } else if (commandCode < 24) {
-//                new LookCommand().execute(this, commandCode, modelContext);
-//            } else if (commandCode < 32) {
-//                new ChangeDirectionCommand().execute(this, commandCode, modelContext);
-//            } else if (commandCode < 64) {
-//                new JumpCommand().execute(this, commandCode, modelContext);
-//            }
+            if (command != null) {
+                command.execute(this, commandCode, modelContext);
+                flag = command.isFinalCommand();
+            }
 
             countExecutedCommand++;
-        }
 
-        if (healthPoints > 50) {
-            modelContext.createChild(this);
+            if (healthPoints <= 0) {
+                modelContext.killCell(this);
+                return;
+            }
+
+            if (healthPoints > 50) {
+                modelContext.createChild(this);
+            }
         }
+    }
+
+    private BaseCommand getCommand(int commandCode) {
+        if (commandCode < 8) {
+            return new MoveCommand();
+        } else if (commandCode < 16) {
+            return new CatchCommand();
+        } else if (commandCode < 24) {
+            return new LookCommand();
+        } else if (commandCode < 32) {
+            return new ChangeDirectionCommand();
+        } else if (commandCode < 64) {
+            return new JumpCommand();
+        }
+        return null;
     }
 
     public void fillBrain() {
         Random random = new Random();
         for (int i = 0; i < 64; i++) {
-            brain[i] = random.nextInt(64);
+            brain[i] = random.nextInt(0,64);
         }
     }
 

@@ -8,4 +8,9 @@ public class JumpCommand implements BaseCommand {
     public void execute(Bacteria bacteria, int commandCode, WorldContext worldContext) {
         bacteria.setIndexCommand(bacteria.getIndexCommand() + commandCode);
     }
+
+    @Override
+    public boolean isFinalCommand() {
+        return false;
+    }
 }

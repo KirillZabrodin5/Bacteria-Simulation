@@ -29,16 +29,12 @@ public class WorldContext {
     }
 
     /**
-     * Этот метод нужен для реализации движения всех entities
-     *
-     * @param entity
-     * @param step
-     * @param availableEntitiesToMove
+     * Этот метод нужен для того, чтобы узнать, что находится в клетке, в которую хочет сходить бактерия
      * @return возвращает entity, на которую наступила бактерия, либо null, если не наступила
      */
     @SafeVarargs
-    public final AbstractEntity checkCellForAnEntity(AbstractEntity entity, Direction step,
-                                                     Class<? extends AbstractEntity>... availableEntitiesToMove) {
+    public final AbstractEntity getEntityOnCoords(AbstractEntity entity, Direction step,
+                                                  Class<? extends AbstractEntity>... availableEntitiesToMove) {
         //добавить перемещение бактерии на новые координаты
         int newX = entity.getCoords().x + step.getX();
         int newY = entity.getCoords().y + step.getY();

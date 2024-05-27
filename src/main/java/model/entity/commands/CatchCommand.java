@@ -7,17 +7,16 @@ import model.entity.*;
 public class CatchCommand implements BaseCommand {
     @Override
     public void execute(Bacteria bacteria, int commandCode, WorldContext worldContext) {
-        Direction step = (Direction.values())[commandCode % 8];
+        int healthPoints = bacteria.getHealthPoints();
+        bacteria.setHealthPoints(healthPoints - 1);
+
+        Direction step = bacteria.getDirection();;
         if (!worldContext.isValidStep(bacteria, step)) {
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
             return;
         }
-        bacteria.setDirection(step);
 
-        int healthPoints = bacteria.getHealthPoints();
-        bacteria.setHealthPoints(healthPoints - 1);
-
-        AbstractEntity encounteredEntity = worldContext.checkCellForAnEntity(bacteria, step,
+        AbstractEntity encounteredEntity = worldContext.getEntityOnCoords(bacteria, step,
                 Bacteria.class, Food.class, Poison.class, Wall.class);
 
         if (encounteredEntity instanceof Food food) {
@@ -34,5 +33,10 @@ public class CatchCommand implements BaseCommand {
         } else {
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.EMPTY);
         }
+    }
+
+    @Override
+    public boolean isFinalCommand() {
+        return true;
     }
 }
