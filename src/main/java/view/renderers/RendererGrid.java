@@ -1,11 +1,11 @@
-package view;
+package view.renderers;
 
 import viewModel.GameWindowConfig;
 
 import java.awt.Graphics;
 import java.awt.Color;
 
-public final class Grid {
+public class RendererGrid {
     public void drawGrid(Graphics g) {
         g.setColor(Color.WHITE);
         int countOfCellsInLength = GameWindowConfig.getCountOfCellsInLength();

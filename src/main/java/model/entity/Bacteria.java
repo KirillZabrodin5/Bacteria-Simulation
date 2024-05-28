@@ -10,38 +10,38 @@ import java.util.Random;
 public class Bacteria extends AbstractEntity {
     private final int brainSize = 64;
     private final int[] brain = new int[brainSize];
-    private final int maxCountCommand = 15;
+    private final int maxCountCommand = 10;
     private int indexCommand = 0;
     //private HandlerCommand handlerCommand = new HandlerCommand();
     private int healthPoints = 50;
-    private Direction direction = Direction.UP; //по сути оно нужно только для того, чтобы глаза рисовать в нужном направлении... или нет
+    private volatile Direction direction; //по сути оно нужно только для того, чтобы глаза рисовать в нужном направлении... или нет
 
     public Bacteria(Point coords) {
         super(coords);
         fillBrain();
+        direction = (Direction.values())[brain[indexCommand] % 8];
     }
 
     @Override
     public void update(WorldContext modelContext) {
         int countExecutedCommand = 0;
-        boolean flag = false;
+        boolean isStop = false;
 
-        while (countExecutedCommand < maxCountCommand && !flag) {
+        while (countExecutedCommand < maxCountCommand && !isStop) {
             int commandCode = brain[indexCommand];
             BaseCommand command = getCommand(commandCode);
             setDirection((Direction.values())[commandCode % 8]);
 
-
             if (command != null) {
                 command.execute(this, commandCode, modelContext);
-                flag = command.isFinalCommand();
+                isStop = command.isFinalCommand();
             }
 
             countExecutedCommand++;
 
             if (healthPoints <= 0) {
                 modelContext.killCell(this);
-                return;
+                break;
             }
 
             if (healthPoints > 50) {

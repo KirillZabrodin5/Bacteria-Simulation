@@ -23,17 +23,13 @@ public class ViewWorld {
             public void run() {
                 world.updateWorld();
             }
-        }, 1000, 500);
+        }, 1000, 1000);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 view.updateView();
             }
         }, 0, 10);
-    }
-
-    public World getWorld() {
-        return world;
     }
 
     public View getView() {

@@ -6,8 +6,6 @@ import viewModel.EntitiesProvider;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class View extends JComponent {
@@ -28,7 +26,7 @@ public class View extends JComponent {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        Grid grid = new Grid();
+        RendererGrid grid = new RendererGrid();
 
         //если сюда отрисовку grid перенести, то неправльно отрисовывается, это значит, костыль какой-то, надо переделать
         //так не должно быть

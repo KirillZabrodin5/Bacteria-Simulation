@@ -10,7 +10,7 @@ public class CatchCommand implements BaseCommand {
         int healthPoints = bacteria.getHealthPoints();
         bacteria.setHealthPoints(healthPoints - 1);
 
-        Direction step = bacteria.getDirection();;
+        Direction step = bacteria.getDirection();
         if (!worldContext.isValidStep(bacteria, step)) {
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
             return;

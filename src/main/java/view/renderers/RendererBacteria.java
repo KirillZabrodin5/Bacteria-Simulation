@@ -251,29 +251,6 @@ public class RendererBacteria implements EntityRenderer<Bacteria> {
                 g.setColor(Color.BLACK);
                 g.drawOval(x + 7, y + 32, 7, 7);
                 break;
-            default:
-                g.setColor(Color.WHITE);
-                g.fillOval(x + 10, y, 10, 10);
-                g.setColor(Color.BLACK);
-                g.drawOval(x + 10, y , 10, 10);
-
-                //зрачки
-                g.setColor(Color.BLACK);
-                g.fillOval(x + 10, y, 7, 7);
-                g.setColor(Color.BLACK);
-                g.drawOval(x + 10, y , 7, 7);
-
-                g.setColor(Color.WHITE);
-                g.fillOval(x + 30, y, 10, 10);
-                g.setColor(Color.BLACK);
-                g.drawOval(x + 30, y, 10, 10);
-
-                //зрачки
-                g.setColor(Color.BLACK);
-                g.fillOval(x + 30, y, 7, 7);
-                g.setColor(Color.BLACK);
-                g.drawOval(x + 30, y , 7, 7);
-                break;
         }
     }
 }

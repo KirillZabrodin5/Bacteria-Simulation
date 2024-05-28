@@ -2,7 +2,7 @@ package model.entity.commands;
 
 import model.WorldContext;
 import model.entity.Bacteria;
-
+//сейчас не используется
 public class HandlerCommand {
     private final MoveCommand moveCommand = new MoveCommand();
     private final CatchCommand catchCommand = new CatchCommand();
