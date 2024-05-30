@@ -16,6 +16,12 @@ public class Bacteria extends AbstractEntity {
     private int healthPoints = 50;
     private volatile Direction direction; //по сути оно нужно только для того, чтобы глаза рисовать в нужном направлении... или нет
 
+    private static final MoveCommand moveCommand = new MoveCommand();
+    private static final CatchCommand catchCommand = new CatchCommand();
+    private static final LookCommand lookCommand = new LookCommand();
+    private static final ChangeDirectionCommand changeDirectionCommand = new ChangeDirectionCommand();
+    private static final JumpCommand jumpCommand = new JumpCommand();
+
     public Bacteria(Point coords) {
         super(coords);
         fillBrain();
@@ -52,15 +58,15 @@ public class Bacteria extends AbstractEntity {
 
     private BaseCommand getCommand(int commandCode) {
         if (commandCode < 8) {
-            return new MoveCommand();
+            return moveCommand;
         } else if (commandCode < 16) {
-            return new CatchCommand();
+            return catchCommand;
         } else if (commandCode < 24) {
-            return new LookCommand();
+            return lookCommand;
         } else if (commandCode < 32) {
-            return new ChangeDirectionCommand();
+            return changeDirectionCommand;
         } else if (commandCode < 64) {
-            return new JumpCommand();
+            return jumpCommand;
         }
         return null;
     }

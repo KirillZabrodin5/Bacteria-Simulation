@@ -26,7 +26,6 @@ public class HandlerCommand {
                 break;
             default:
                 jumpCommand.execute(bacteria, commandCode, worldContext);
-                break;
         }
     }
 }

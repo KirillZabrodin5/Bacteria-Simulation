@@ -39,7 +39,6 @@ public class MoveCommand implements BaseCommand {
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
         } else {
             worldContext.moveBacteria(bacteria, newX, newY);
-
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.EMPTY);
         }
     }
