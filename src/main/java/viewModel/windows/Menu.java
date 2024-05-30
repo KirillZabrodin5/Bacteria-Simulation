@@ -1,4 +1,4 @@
-package viewModel;
+package viewModel.windows;
 
 import log.Logger;
 

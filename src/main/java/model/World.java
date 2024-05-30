@@ -1,7 +1,7 @@
 package model;
 
 import model.entity.*;
-import viewModel.GameWindowConfig;
+import viewModel.windows.GameWindowConfig;
 
 import java.awt.Point;
 import java.util.*;

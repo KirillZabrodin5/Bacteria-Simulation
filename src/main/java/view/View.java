@@ -2,7 +2,7 @@ package view;
 
 import model.entity.*;
 import view.renderers.*;
-import viewModel.EntitiesProvider;
+import viewModel.IEntitiesProvider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class View extends JComponent {
 
-    private final EntitiesProvider entitiesProvider;
+    private final IEntitiesProvider entitiesProvider;
     private final Map<Class<?>, EntityRenderer<?>> entityRendererMap = Map.of(
             Bacteria.class, new RendererBacteria(),
             Food.class, new RendererFood(),
@@ -18,7 +18,7 @@ public class View extends JComponent {
             Wall.class, new RendererWall()
     );
 
-    public View(EntitiesProvider entitiesProvider) {
+    public View(IEntitiesProvider entitiesProvider) {
         this.entitiesProvider = entitiesProvider;
         setDoubleBuffered(true);
     }

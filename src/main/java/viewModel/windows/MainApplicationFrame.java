@@ -1,7 +1,11 @@
-package viewModel;
+package viewModel.windows;
 
 import log.Logger;
 import view.View;
+import viewModel.windows.GameWindow;
+import viewModel.windows.GameWindowConfig;
+import viewModel.windows.LogWindow;
+import viewModel.windows.Menu;
 
 import javax.swing.*;
 

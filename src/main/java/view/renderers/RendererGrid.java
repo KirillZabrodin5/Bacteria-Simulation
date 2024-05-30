@@ -1,6 +1,6 @@
 package view.renderers;
 
-import viewModel.GameWindowConfig;
+import viewModel.windows.GameWindowConfig;
 
 import java.awt.Graphics;
 import java.awt.Color;

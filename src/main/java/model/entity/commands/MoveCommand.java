@@ -31,7 +31,6 @@ public class MoveCommand implements BaseCommand {
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.FOOD);
         } else if (encounteredEntity instanceof Poison) {
             worldContext.eatPoison(bacteria);
-
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.POISON);
         } else if (encounteredEntity instanceof Bacteria) {
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.BACTERIA);

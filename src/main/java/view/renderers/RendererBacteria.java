@@ -1,7 +1,7 @@
 package view.renderers;
 
 import model.Direction;
-import viewModel.GameWindowConfig;
+import viewModel.windows.GameWindowConfig;
 import model.entity.Bacteria;
 
 import java.awt.*;

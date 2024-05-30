@@ -5,9 +5,9 @@ import model.entity.AbstractEntity;
 
 import java.util.List;
 
-public class EntitiesProviderFromModelToView implements EntitiesProvider {
+public class CEntitiesProvider implements IEntitiesProvider {
     private final World world;
-    public EntitiesProviderFromModelToView(World world) {
+    public CEntitiesProvider(World world) {
         this.world = world;
     }
 

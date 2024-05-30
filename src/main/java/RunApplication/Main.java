@@ -2,9 +2,9 @@ package RunApplication;
 
 import model.World;
 import view.View;
-import viewModel.EntitiesProvider;
-import viewModel.EntitiesProviderFromModelToView;
-import viewModel.MainApplicationFrame;
+import viewModel.IEntitiesProvider;
+import viewModel.CEntitiesProvider;
+import viewModel.windows.MainApplicationFrame;
 import viewModel.ViewWorld;
 
 import javax.swing.*;
@@ -19,7 +19,7 @@ public class Main {
         }
         SwingUtilities.invokeLater(() -> {
             World world = new World();
-            EntitiesProvider entitiesProvider = new EntitiesProviderFromModelToView(world);
+            IEntitiesProvider entitiesProvider = new CEntitiesProvider(world);
             View view = new View(entitiesProvider);
             ViewWorld viewModel = new ViewWorld(world, view);
 

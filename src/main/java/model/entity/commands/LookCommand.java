@@ -13,7 +13,6 @@ public class LookCommand implements BaseCommand {
             return;
         }
 
-
         AbstractEntity entity = worldContext.getEntityOnCoords(bacteria, step, Bacteria.class,
                 Food.class, Poison.class, Wall.class);
 
