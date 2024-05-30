@@ -1,2 +1,7 @@
-# Robots
-The project to learn OO design concepts and MDI application development in Java
+# Bacteria simulation
+Симуляция мира, населённого бактериями. Кроме существ, мир содержит ресурсы - еду, 
+которыми питаются бактерии, и яд, от которых бактерия
+погибает или превращает его в еду, и статичные объекты - стена, 
+с которыми нельзя взаимодействовать - они просто занимают место.
+
+Идея взата отсюда: https://www.youtube.com/watch?v=SfEZSyvbj2w
