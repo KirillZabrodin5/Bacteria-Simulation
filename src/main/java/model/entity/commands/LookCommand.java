@@ -4,7 +4,8 @@ import model.Direction;
 import model.WorldContext;
 import model.entity.*;
 
-public class LookCommand implements BaseCommand {
+public class LookCommand extends BaseCommand {
+    private static final int healphLook = 3;
     @Override
     public void execute(Bacteria bacteria, int commandCode, WorldContext worldContext) {
         Direction step = bacteria.getDirection();
@@ -12,7 +13,7 @@ public class LookCommand implements BaseCommand {
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.WALL);
             return;
         }
-
+        bacteria.setHealthPoints(bacteria.getHealthPoints() - healphLook);
         AbstractEntity entity = worldContext.getEntityOnCoords(bacteria, step, Bacteria.class,
                 Food.class, Poison.class, Wall.class);
 

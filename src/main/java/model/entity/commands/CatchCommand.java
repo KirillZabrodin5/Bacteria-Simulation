@@ -4,11 +4,11 @@ import model.Direction;
 import model.WorldContext;
 import model.entity.*;
 
-public class CatchCommand implements BaseCommand {
+public class CatchCommand extends BaseCommand {
     @Override
     public void execute(Bacteria bacteria, int commandCode, WorldContext worldContext) {
         int healthPoints = bacteria.getHealthPoints();
-        bacteria.setHealthPoints(healthPoints - 1);
+        bacteria.setHealthPoints(healthPoints - healphStep);
 
         Direction step = bacteria.getDirection();
         if (!worldContext.isValidStep(bacteria, step)) {
@@ -21,7 +21,7 @@ public class CatchCommand implements BaseCommand {
 
         if (encounteredEntity instanceof Food food) {
             worldContext.eatFood(food);
-            bacteria.setHealthPoints(healthPoints + 10);
+            bacteria.setHealthPoints(healthPoints + healphEatFood);
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.FOOD);
         } else if (encounteredEntity instanceof Poison poison) {
             worldContext.neutralizePoison(poison);

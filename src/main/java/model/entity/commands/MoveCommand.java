@@ -4,11 +4,11 @@ import model.Direction;
 import model.WorldContext;
 import model.entity.*;
 
-public class MoveCommand implements BaseCommand {
+public class MoveCommand extends BaseCommand {
     @Override
     public void execute(Bacteria bacteria, int commandCode, WorldContext worldContext) {
         int healthPoints = bacteria.getHealthPoints();
-        bacteria.setHealthPoints(healthPoints - 1);
+        bacteria.setHealthPoints(healthPoints - healphStep);
 
         Direction step = bacteria.getDirection();
         if (!worldContext.isValidStep(bacteria, step)) {
@@ -26,7 +26,7 @@ public class MoveCommand implements BaseCommand {
             worldContext.eatFood(food);
             worldContext.moveBacteria(bacteria, newX, newY);
 
-            bacteria.setHealthPoints(healthPoints + 10);
+            bacteria.setHealthPoints(healthPoints + healphEatFood);
 
             bacteria.setIndexCommand(bacteria.getIndexCommand() + EntityToValue.FOOD);
         } else if (encounteredEntity instanceof Poison) {

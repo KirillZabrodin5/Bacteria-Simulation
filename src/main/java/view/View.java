@@ -27,9 +27,6 @@ public class View extends JComponent {
     public void paint(Graphics g) {
         super.paint(g);
         RendererGrid grid = new RendererGrid();
-
-        //если сюда отрисовку grid перенести, то неправльно отрисовывается, это значит, костыль какой-то, надо переделать
-        //так не должно быть
         for (AbstractEntity entity : entitiesProvider.getEntitiesList()) {
             EntityRenderer<AbstractEntity> renderer = (EntityRenderer<AbstractEntity>) entityRendererMap
                     .get(entity.getClass());

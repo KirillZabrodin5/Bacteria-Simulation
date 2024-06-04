@@ -23,9 +23,9 @@ public class RendererBacteria implements EntityRenderer<Bacteria> {
     private static void drawBacteria(Graphics2D g, int x, int y, int hp, int cellSizeInLength, int cellSizeInWidth, Direction direction) {
         AffineTransform t = AffineTransform.getRotateInstance(0, 0, 0);
         g.setTransform(t);
-        drawCell(g, x, y, cellSizeInLength, cellSizeInWidth);//это сама бактерия рисуется
-        drawHp(g, x, y, hp, cellSizeInLength, cellSizeInWidth); //это рисуется значение hp
-        drawEyes(g, x, y, direction); //это рисуются глаза
+        drawCell(g, x, y, cellSizeInLength, cellSizeInWidth); //рисуется бактерия
+        drawHp(g, x, y, hp, cellSizeInLength, cellSizeInWidth); //отображается значение hp
+        drawEyes(g, x, y, direction); //рисуются глаза
     }
 
     private static void drawCell(Graphics2D g, int x, int y, int cellSizeInLength, int cellSizeInWidth) {

@@ -20,8 +20,8 @@ import java.awt.*;
 public class WorldContext {
     private final World world;
 
-    public WorldContext(World model) {
-        this.world = model;
+    public WorldContext(World world) {
+        this.world = world;
     }
 
     public boolean isValidStep(AbstractEntity entity, Direction step) {
@@ -30,12 +30,11 @@ public class WorldContext {
 
     /**
      * Этот метод нужен для того, чтобы узнать, что находится в клетке, в которую хочет сходить бактерия
-     * @return возвращает entity, на которую наступила бактерия, либо null, если не наступила
+     * @return возвращает entity, на которую наступит бактерия, либо null, если в клетке пусто
      */
     @SafeVarargs
     public final AbstractEntity getEntityOnCoords(AbstractEntity entity, Direction step,
                                                   Class<? extends AbstractEntity>... availableEntitiesToMove) {
-        //добавить перемещение бактерии на новые координаты
         int newX = entity.getCoords().x + step.getX();
         int newY = entity.getCoords().y + step.getY();
         AbstractEntity entityOnCoords = world.getEntityOnCoords(new Point(newX, newY));
@@ -47,14 +46,9 @@ public class WorldContext {
         return null;
     }
 
-    //переместиться, съесть и узнать, что находится в указанном направлении - добавить эти методы
-    //как будто у меня все эти 3 метода есть, возможно стоит пересмотреть архитектуру и организацию этих моментов
-    //заняться этим, если будет время, то есть после того, как напишу мозг бактерии
     public void moveBacteria(Bacteria bacteria, int newX, int newY) {
         world.moveBacteria(bacteria, newX, newY);
     }
-
-    //создать eat(Bacteria, Direction) - общий метод для еды и яда, не понял зачем
 
     public void eatFood(Food food) {
         world.eatFood(food);

@@ -12,10 +12,8 @@ public class Bacteria extends AbstractEntity {
     private final int[] brain = new int[brainSize];
     private final int maxCountCommand = 10;
     private int indexCommand = 0;
-    //private HandlerCommand handlerCommand = new HandlerCommand();
     private int healthPoints = 50;
-    private volatile Direction direction; //по сути оно нужно только для того, чтобы глаза рисовать в нужном направлении... или нет
-
+    private volatile Direction direction;
     private static final MoveCommand moveCommand = new MoveCommand();
     private static final CatchCommand catchCommand = new CatchCommand();
     private static final LookCommand lookCommand = new LookCommand();

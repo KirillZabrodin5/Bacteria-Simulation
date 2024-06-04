@@ -10,12 +10,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class World {
     private final List<AbstractEntity> entitiesList = new ArrayList<>();
     private final List<AbstractEntity> newEntities = new CopyOnWriteArrayList<>();
-    private final List<AbstractEntity> entitiesToRemove = new CopyOnWriteArrayList<>(); //создать класс entitiesRepository - 3 поля
+    private final List<AbstractEntity> entitiesToRemove = new CopyOnWriteArrayList<>();
     private final List<Point> freeCells = new ArrayList<>();
-    private final Map<Point, AbstractEntity> entitiesMap = new HashMap<>(); //создать класс для поля (из freeCells и entitiesMap)
+    private final Map<Point, AbstractEntity> entitiesMap = new HashMap<>(); //ассоциативный массив с координатами клеток и их сущностями
     private final WorldContext worldContext = new WorldContext(this);
 
     public World() {
+
         fillFreeCells();
 
         createEntities();
@@ -119,10 +120,6 @@ public class World {
         entitiesList.removeAll(entitiesToRemove);
 
         entitiesToRemove.clear();
-    }
-
-    public Map<Point, AbstractEntity> getEntitiesMap() {
-        return entitiesMap;
     }
 
     private void fillEntitiesMap() {
